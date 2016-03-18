@@ -68,7 +68,7 @@ Each entry is either:
     :defer t
     :init
     (progn
-      (setq org-ref-directory "~/Dropbox/Notes/org/bib/")
+      (setq org-ref-directory (concat org-base-directory "bib/"))
       (setq
        reftex-default-bibliography `(,(concat org-ref-directory "ref.bib"))
        org-ref-bibliography-notes (concat org-ref-directory "notes.org")
@@ -91,7 +91,7 @@ Each entry is either:
   (with-eval-after-load 'org
     (message "post-init-org after load org")
     (progn
-      (setq org-directory "~/Dropbox/Notes/org/"
+      (setq org-directory org-base-directory
             org-agenda-diary-file (concat org-directory "diary.org")
             org-default-notes-file (concat org-directory "refile.org")
             org-mobile-directory "~/Dropbox/应用/MobileOrg/"
@@ -459,7 +459,7 @@ as the default task."
       (require 'ox-latex)
       (add-to-list 'org-latex-classes
                    '("my-beamer"
-                     "\\documentsclass[presentation]{beamer}
+                     "\\documentclass[presentation]{beamer}
                       \\usepackage[UTF8]{ctex}
                       \\mode<presentation> {
                         \\setbeamercovered{transparent}
@@ -467,6 +467,7 @@ as the default task."
                         \\usefonttheme[onlymath]{serif}
                       }
                       \\usepackage{amsmath, amssymb}
+                      \\usepackage{hyperref}
                       \\usepackage[english]{babel}
                       \\usepackage{tikz}
                       \\setbeamerfont{smallfont}{size=\\small}
@@ -490,7 +491,10 @@ as the default task."
                      ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                      ("\\paragraph{%s}" . "\\paragraph*{%s}")
                      ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-
+      (setq org-latex-processes
+            '("xelatex -interaction nonstopmode -output-directory %o %f"
+              "xelatex -interaction nonstopmode -output-directory %o %f")
+            )
       (setq org-agenda-exporter-settings
             '((ps-number-of-columns 1)
               (ps-landscape-mode t)
@@ -686,7 +690,7 @@ as the default task."
 (defun org-enhanced/post-init-deft ()
   (with-eval-after-load 'deft
     (progn
-      (setq deft-directory "~/Dropbox/Notes/org/deft/"
+      (setq deft-directory (concat org-base-directory "deft/")
             deft-recursive t
             deft-auto-save-interval 10.0
             deft-file-naming-rules '((nospace . "-")

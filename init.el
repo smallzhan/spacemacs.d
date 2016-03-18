@@ -253,6 +253,9 @@ It is called immediately after `dotspacemacs/init'.  You are free to put almost
 any user code here.  The exception is org related code, which should be placed
 in `dotspacemacs/user-config'."
   (setq custom-theme-directory "~/.spacemacs.d")
+  (setq frame-title-format "Guoqiang Jin@%b")
+  (setq user-full-name "Guoqiang Jin")
+  (setq user-mail-address "ustczhan@gmail.com")
   )
 
 (defun dotspacemacs/user-config ()
