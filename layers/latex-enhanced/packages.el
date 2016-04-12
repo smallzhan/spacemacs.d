@@ -99,7 +99,11 @@ Each entry is either:
 
     (defun beamer-mark-frame ()
       "Set mark to end of current frame and point to the matching begin.
-The command will not work properly if there are unbalanced
+The command will not work properly if there are unb(defun latex-enhanced/init-cdlatex()
+  (use-package cdlatex
+    :defer t
+    :init
+    (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)))alanced
 begin-end pairs in comments and verbatim environments."
       (interactive)
       (let ((cur (point))

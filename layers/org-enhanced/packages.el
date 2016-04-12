@@ -28,12 +28,14 @@
 ;;   `org-enhanced/post-init-PACKAGE' to customize the package as it is loaded.
 
 ;;; Code:
-
+ 
 (defconst org-enhanced-packages
   '(htmlize
     org-plus-contrib
     deft
     org-ref
+    cdlatex
+    helm-org-rifle
     )
   "The list of Lisp packages required by the org-enhanced layer.
 
@@ -87,9 +89,7 @@ Each entry is either:
   )
 
 (defun org-enhanced/post-init-org-plus-contrib ()
-  (message "post-init-org")
   (with-eval-after-load 'org
-    (message "post-init-org after load org")
     (progn
       (setq org-directory org-base-directory
             org-agenda-diary-file (concat org-directory "diary.org")
@@ -452,7 +452,7 @@ as the default task."
       (run-at-time "24:01" nil 'bh/org-agenda-to-appt)
 
       (setq org-export-with-timestamps nil)
-      (add-hook 'org-mode-hook 'turn-on-org-cdlatex)
+      (add-hook 'org-mode-hook 'turn-on-org-cdlatex) 
 
       (setq org-latex-listings t)
 
@@ -500,7 +500,7 @@ as the default task."
               (ps-landscape-mode t)
               (htmlize-output-type 'css)))
 
-
+     (require 'ox-gfm) 
       (defun org-gfm-publish-to-markdown (plist filename pub-dir)
         "Publish an org file to MARKDOWN with GFM.
 
@@ -697,4 +697,16 @@ as the default task."
                                      (case-fn . downcase)))
       )))
 
+(defun org-enhanced/init-helm-org-rifle()
+  (use-package helm-org-rifle
+    :defer t
+    :init
+    (progn
+      (require 'helm-org-rifle)
+      (spacemacs/set-leader-keys
+        "hr" 'helm-org-rifle)
+      (spacemacs/set-leader-keys-for-major-mode 'org-mode
+        "r" 'helm-org-rifle-current-buffer))
+    ))
 ;;; packages.el ends here
+ 
