@@ -153,13 +153,13 @@ Each entry is either:
       ;; For tag searches ignore tasks with scheduled and deadline dates
       (setq org-agenda-tags-todo-honor-ignore-options t)
 
-      (defun bh/remove-empty-drawer-on-clock-out ()
-        (interactive)
-        (save-excursion
-          (beginning-of-line 0)
-          (org-remove-empty-drawer-at "LOGBOOK" (point))))
+      ;; (defun bh/remove-empty-drawer-on-clock-out ()
+      ;;   (interactive)
+      ;;   (save-excursion
+      ;;     (beginning-of-line 0)
+      ;;     (org-remove-empty-drawer-at "LOGBOOK" (point))))
 
-      (add-hook 'org-clock-out-hook 'bh/remove-empty-drawer-on-clock-out 'append)
+      ;;(add-hook 'org-clock-out-hook 'bh/remove-empty-drawer-on-clock-out 'append)
 
       (setq org-hide-leading-stars nil)
       (setq org-cycle-separator-lines 0)
@@ -500,7 +500,7 @@ as the default task."
               (ps-landscape-mode t)
               (htmlize-output-type 'css)))
 
-     (require 'ox-gfm) 
+      (require 'ox-gfm) 
       (defun org-gfm-publish-to-markdown (plist filename pub-dir)
         "Publish an org file to MARKDOWN with GFM.
 
@@ -683,6 +683,26 @@ as the default task."
          (C . nil)
          (latex . t)
          ))
+
+      (defun my-org-archive-done-tasks ()
+        (interactive)
+        (dolist (tag (list
+                      "/DONE"
+                      "/CANCELLED"))
+          (org-map-entries 'org-archive-subtree tag 'file))
+        )
+      (setq org-agenda-text-search-extra-files '(agenda-archives))
+
+      (defun zin/org-tag-match-context (&optional todo-only match)
+        "Identical search to `org-match-sparse-tree', but shows the content of the matches"
+        (interactive "P")
+        (org-agenda-prepare-buffers (list (current-buffer)))
+        (org-overview)
+        (org-remove-occur-highlights)
+        (org-scan-tags '(progn (org-show-entry)
+                               (org-show-context))
+                       (cdr (org-make-tags-matcher match)) todo-only)
+        )
       )
     )
   )
@@ -702,7 +722,7 @@ as the default task."
     :defer t
     :init
     (progn
-      (require 'helm-org-rifle)
+     ;; (require 'helm-org-rifle)
       (spacemacs/set-leader-keys
         "hr" 'helm-org-rifle)
       (spacemacs/set-leader-keys-for-major-mode 'org-mode

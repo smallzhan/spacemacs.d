@@ -46,15 +46,15 @@ values."
      colors
      (chinese :variables chinese-enable-fcitx t
               chinese-enable-youdao-dict t)
-     swift
+     my-swift
      org-enhanced
      latex-enhanced
-     ) 
-   ;; List of additional packages that will be installed without being
-   ;; wrapped in a layer. If you need some configuration for these
-   ;; packages, then consider creating a layer. You can also put the
-   ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '()
+     
+     ;; List of additional packages that will be installed without being
+     ;; wrapped in a layer. If you need some configuration for these
+     ;; packages, then consider creating a layer. You can also put the
+     ;; configuration in `dotspacemacs/user-config'.
+     dotspacemacs-additional-packages '())
   ;; A list of packages and/or extensions that will not be install and loaded.
   dotspacemacs-excluded-packages '()
   ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -304,7 +304,7 @@ layers configuration. You are free to put any user code."
     ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
  '(package-selected-packages
    (quote
-    (helm-org-rifle swift-mode biblio biblio-core flatland-theme aurora-theme cdlatex youdao-dictionary names chinese-word-at-point pangu-spacing find-by-pinyin-dired fcitx chinese-pyim ace-pinyin ace-jump-mode org-ref key-chord helm-bibtex parsebib orgit org-present company-auctex auctex-latexmk auctex rainbow-identifiers rainbow-mode git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter diff-hl zenburn-theme monokai-theme evil-jumper flycheck-pos-tip flycheck deft pyvenv pytest pyenv-mode org-pomodoro alert log4e gntp org-plus-contrib org-bullets magit-gitflow htmlize helm-gitignore request helm-company helm-c-yasnippet gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger evil-magit company-statistics company-quickhelp pos-tip company-anaconda auto-yasnippet yasnippet ac-ispell auto-complete pythonic xterm-color shell-pop reveal-in-osx-finder pip-requirements pbcopy osx-trash multi-term launchctl hy-mode helm-pydoc eshell-prompt-extras esh-help cython-mode toc-org smeargle org-repo-todo paradox hydra adaptive-wrap ws-butler window-numbering volatile-highlights vi-tilde-fringe spaceline s powerline smooth-scrolling restart-emacs rainbow-delimiters popwin persp-mode pcre2el spinner page-break-lines open-junk-file move-text macrostep lorem-ipsum linum-relative leuven-theme info+ indent-guide ido-vertical-mode hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-args evil-anzu anzu eval-sexp-fu highlight elisp-slime-nav define-word clean-aindent-mode buffer-move bracketed-paste auto-highlight-symbol auto-compile packed aggressive-indent ace-window ace-link ace-jump-helm-line avy popup async quelpa package-build use-package which-key bind-key bind-map spacemacs-theme)))
+    (company-sourcekit sourcekit helm-org-rifle swift-mode biblio biblio-core flatland-theme aurora-theme cdlatex youdao-dictionary names chinese-word-at-point pangu-spacing find-by-pinyin-dired fcitx chinese-pyim ace-pinyin ace-jump-mode org-ref key-chord helm-bibtex parsebib orgit org-present company-auctex auctex-latexmk auctex rainbow-identifiers rainbow-mode git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter diff-hl zenburn-theme monokai-theme evil-jumper flycheck-pos-tip flycheck deft pyvenv pytest pyenv-mode org-pomodoro alert log4e gntp org-plus-contrib org-bullets magit-gitflow htmlize helm-gitignore request helm-company helm-c-yasnippet gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger evil-magit company-statistics company-quickhelp pos-tip company-anaconda auto-yasnippet yasnippet ac-ispell auto-complete pythonic xterm-color shell-pop reveal-in-osx-finder pip-requirements pbcopy osx-trash multi-term launchctl hy-mode helm-pydoc eshell-prompt-extras esh-help cython-mode toc-org smeargle org-repo-todo paradox hydra adaptive-wrap ws-butler window-numbering volatile-highlights vi-tilde-fringe spaceline s powerline smooth-scrolling restart-emacs rainbow-delimiters popwin persp-mode pcre2el spinner page-break-lines open-junk-file move-text macrostep lorem-ipsum linum-relative leuven-theme info+ indent-guide ido-vertical-mode hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-args evil-anzu anzu eval-sexp-fu highlight elisp-slime-nav define-word clean-aindent-mode buffer-move bracketed-paste auto-highlight-symbol auto-compile packed aggressive-indent ace-window ace-link ace-jump-helm-line avy popup async quelpa package-build use-package which-key bind-key bind-map spacemacs-theme)))
  '(paradox-github-token t)
  '(pos-tip-background-color "#A6E22E")
  '(pos-tip-foreground-color "#272822")
