@@ -13,7 +13,7 @@ values."
    dotspacemacs-distribution 'spacemacs
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
-   dotspacemacs-configuration-layer-path '("~/.spacemacs.d/layers/")
+   dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load. If it is the symbol `all' instead
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
@@ -36,7 +36,8 @@ values."
             shell-default-position 'bottom)
      ;; spell-checking
      syntax-checking
-     (python :variables python-enable-yapf-format-on-save t)
+     ;;(python :variables python-enable-yapf-format-on-save t)
+     elpy
      (latex :variables latex-enable-folding t
             latex-build-command "LatexMk")
      emacs-lisp
@@ -47,20 +48,22 @@ values."
      (chinese :variables chinese-enable-fcitx t
               chinese-enable-youdao-dict t)
      my-swift
+     scheme
+     rtags
      org-enhanced
      latex-enhanced
-     
+     )
      ;; List of additional packages that will be installed without being
      ;; wrapped in a layer. If you need some configuration for these
      ;; packages, then consider creating a layer. You can also put the
      ;; configuration in `dotspacemacs/user-config'.
-     dotspacemacs-additional-packages '())
-  ;; A list of packages and/or extensions that will not be install and loaded.
-  dotspacemacs-excluded-packages '()
-  ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
-  ;; are declared in a layer which is not a member of
-  ;; the list `dotspacemacs-configuration-layers'. (default t)
-  dotspacemacs-delete-orphan-packages t))
+   dotspacemacs-additional-packages '()
+   ;; A list of packages and/or extensions that will not be install and loaded.
+   dotspacemacs-excluded-packages '()
+   ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
+   ;; are declared in a layer which is not a member of
+   ;; the list `dotspacemacs-configuration-layers'. (default t)
+   dotspacemacs-delete-orphan-packages t))
 
 (defun dotspacemacs/init ()
   "Initialization function.
@@ -77,7 +80,7 @@ values."
    ;; This variable has no effect if Emacs is launched with the parameter
    ;; `--insecure' which forces the value of this variable to nil.
    ;; (default t)
-   dotspacemacs-elpa-https t
+   dotspacemacs-elpa-https nil
    ;; Maximum allowed time in seconds to contact an ELPA repository.
    dotspacemacs-elpa-timeout 5
    ;; If non nil then spacemacs will check for updates at startup
@@ -109,17 +112,18 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(aurora
+   dotspacemacs-themes '(zenburn
+                         aurora
                          material
                          tangotango
-                         ;;spacemacs-dark
-                         ;;spacemacs-light
+                         spacemacs-dark
+                         ;spacemacs-light
                          ;;solarized-light
                          ;;solarized-dark
-                         ;;leuven
+                          ;;leuven
                          ;;monokai
                          flatland
-                         zenburn)
+                         )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
@@ -260,7 +264,11 @@ in `dotspacemacs/user-config'."
   (setq frame-title-format "Guoqiang Jin@%b")
   (setq user-full-name "Guoqiang Jin")
   (setq user-mail-address "ustczhan@gmail.com")
-  )
+  (setq configuration-layer--elpa-archives
+        '(("melpa-cn" . "http://elpa.zilongshanren.com/melpa/")
+          ("org-cn"   . "http://elpa.zilongshanren.com/org/")
+          ("gnu-cn"   . "http://elpa.zilongshanren.com/gnu/")))
+ )
 
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
@@ -268,6 +276,9 @@ This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
   (setq magit-repository-directories '("~/Projects/"))
   (global-git-commit-mode t)
+  (setq powerline-default-separator 'slant)
+  (setq ns-use-srgb-colorspace nil)
+  (spaceline-compile)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -282,10 +293,9 @@ layers configuration. You are free to put any user code."
  '(ansi-color-names-vector
    ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#e090d7" "#8cc4ff" "#eeeeec"])
  '(compilation-message-face (quote default))
- '(custom-safe-themes
-   (quote
-    ("806a21efd9ca849a1c7986d7eb62de39837cc51200813171e24d20bd2b53d3f1" "790e74b900c074ac8f64fa0b610ad05bcfece9be44e8f5340d2d94c1e47538de" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" default)))
  '(fci-rule-color "#232A2F" t)
+ '(geiser-active-implementations (quote (guile racket chicken chez)))
+ '(geiser-chez-binary "scheme")
  '(highlight-changes-colors (quote ("#FD5FF0" "#AE81FF")))
  '(highlight-tail-colors
    (quote
@@ -297,6 +307,9 @@ layers configuration. You are free to put any user code."
      ("#A45E0A" . 70)
      ("#A41F99" . 85)
      ("#3E3D31" . 100))))
+ '(hl-sexp-background-color "#1c1f26")
+ '(ibuffer-deletion-face (quote diredp-deletion-file-name))
+ '(ibuffer-marked-face (quote diredp-flag-mark))
  '(magit-diff-use-overlays nil)
  '(menu-bar-mode t)
  '(nrepl-message-colors
@@ -304,7 +317,7 @@ layers configuration. You are free to put any user code."
     ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
  '(package-selected-packages
    (quote
-    (company-sourcekit sourcekit helm-org-rifle swift-mode biblio biblio-core flatland-theme aurora-theme cdlatex youdao-dictionary names chinese-word-at-point pangu-spacing find-by-pinyin-dired fcitx chinese-pyim ace-pinyin ace-jump-mode org-ref key-chord helm-bibtex parsebib orgit org-present company-auctex auctex-latexmk auctex rainbow-identifiers rainbow-mode git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter diff-hl zenburn-theme monokai-theme evil-jumper flycheck-pos-tip flycheck deft pyvenv pytest pyenv-mode org-pomodoro alert log4e gntp org-plus-contrib org-bullets magit-gitflow htmlize helm-gitignore request helm-company helm-c-yasnippet gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger evil-magit company-statistics company-quickhelp pos-tip company-anaconda auto-yasnippet yasnippet ac-ispell auto-complete pythonic xterm-color shell-pop reveal-in-osx-finder pip-requirements pbcopy osx-trash multi-term launchctl hy-mode helm-pydoc eshell-prompt-extras esh-help cython-mode toc-org smeargle org-repo-todo paradox hydra adaptive-wrap ws-butler window-numbering volatile-highlights vi-tilde-fringe spaceline s powerline smooth-scrolling restart-emacs rainbow-delimiters popwin persp-mode pcre2el spinner page-break-lines open-junk-file move-text macrostep lorem-ipsum linum-relative leuven-theme info+ indent-guide ido-vertical-mode hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-args evil-anzu anzu eval-sexp-fu highlight elisp-slime-nav define-word clean-aindent-mode buffer-move bracketed-paste auto-highlight-symbol auto-compile packed aggressive-indent ace-window ace-link ace-jump-helm-line avy popup async quelpa package-build use-package which-key bind-key bind-map spacemacs-theme)))
+    (elpy find-file-in-project swiper ivy py-yapf youdao-dictionary xterm-color ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe use-package toc-org spacemacs-theme spaceline smooth-scrolling smeargle shell-pop rtags reveal-in-osx-finder restart-emacs rainbow-mode rainbow-identifiers rainbow-delimiters quelpa pyvenv pytest pyenv-mode py-yapf popwin pip-requirements persp-mode pcre2el pbcopy paradox pangu-spacing page-break-lines osx-trash orgit org-repo-todo org-ref org-present org-pomodoro org-plus-contrib org-bullets open-junk-file neotree multi-term move-text magit-gitflow macrostep lorem-ipsum linum-relative leuven-theme launchctl info+ indent-guide ido-vertical-mode hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-pydoc helm-projectile helm-org-rifle helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-gutter-fringe git-gutter-fringe+ geiser flycheck-pos-tip flx-ido find-by-pinyin-dired fill-column-indicator fcitx fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eval-sexp-fu eshell-prompt-extras esh-help elisp-slime-nav diff-hl deft define-word cython-mode company-statistics company-sourcekit company-quickhelp company-auctex company-anaconda cmake-ide clean-aindent-mode chinese-pyim cdlatex buffer-move bracketed-paste auto-yasnippet auto-highlight-symbol auto-compile auctex-latexmk aggressive-indent adaptive-wrap ace-window ace-pinyin ace-link ace-jump-helm-line ac-ispell)))
  '(paradox-github-token t)
  '(pos-tip-background-color "#A6E22E")
  '(pos-tip-foreground-color "#272822")
