@@ -59,7 +59,7 @@ values."
      ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '()
    ;; A list of packages and/or extensions that will not be install and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages '(ac-ispell auto-complete spacemacs-theme leuven-theme org-present orgit fancy-battery gntp)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'. (default t)
@@ -112,17 +112,15 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(zenburn
-                         aurora
+   dotspacemacs-themes '(aurora
                          material
                          tangotango
-                         spacemacs-dark
-                         ;spacemacs-light
+                         dracula
+                         ;;spacemacs-dark
+                         ;;spacemacs-light
                          ;;solarized-light
                          ;;solarized-dark
-                          ;;leuven
-                         ;;monokai
-                         flatland
+                         zenburn
                          )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
@@ -293,7 +291,10 @@ layers configuration. You are free to put any user code."
  '(ansi-color-names-vector
    ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#e090d7" "#8cc4ff" "#eeeeec"])
  '(compilation-message-face (quote default))
- '(fci-rule-color "#232A2F" t)
+ '(custom-safe-themes
+   (quote
+    ("1bacdd5d24f187f273f488a23c977f26452dffbc82d4ac57250aa041f14159da" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" default)))
+ '(fci-rule-color "#232A2F")
  '(geiser-active-implementations (quote (guile racket chicken chez)))
  '(geiser-chez-binary "scheme")
  '(highlight-changes-colors (quote ("#FD5FF0" "#AE81FF")))

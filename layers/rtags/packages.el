@@ -82,7 +82,7 @@
       (add-to-list 'company-backends 'company-rtags)
       (setq company-rtags-begin-after-member-access t)
 
-      (require 'rtags-ac)
+      ;;(require 'rtags-ac)
       (setq rtags-completions-enabled t)
       (rtags-diagnostics)
 
