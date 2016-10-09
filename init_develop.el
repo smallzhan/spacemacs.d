@@ -28,9 +28,13 @@ values."
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
    dotspacemacs-configuration-layer-path '()
+
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     yaml
+     html
+     markdown
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -51,22 +55,28 @@ values."
              shell-default-position 'bottom)
      ;; spell-checking
      syntax-checking
-     ;;elpy
-     (python :variables python-enable-yapf-format-on-save t)
-     (latex :variables latex-enable-folding t
+     ;; elpy
+     (python :variables
+             python-sort-imports-on-save t
+             python-enable-yapf-format-on-save t)
+     (latex :variables
+            latex-enable-folding t
             latex-build-command "LatexMk")
-     (version-control :variables version-control-diff-tool 'git-gutter+
+     (version-control :variables
+                      version-control-diff-tool 'git-gutter+
                       version-control-global-margin t)
      colors
-     (chinese :variables chinese-enable-fcitx t
+     (chinese :variables
+              chinese-enable-fcitx t
               chinese-enable-youdao-dict t)
+     dash
      my-swift
      scheme
      rtags
      org-enhanced
      latex-enhanced
-     ;; version-control
      )
+
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
@@ -101,6 +111,8 @@ values."
    dotspacemacs-elpa-https t
    ;; Maximum allowed time in seconds to contact an ELPA repository.
    dotspacemacs-elpa-timeout 5
+
+   dotspacemacs-elpa-subdirectory 'emacs-version
    ;; If non nil then spacemacs will check for updates at startup
    ;; when the current branch is not `develop'. (default t)
    dotspacemacs-check-for-update t
@@ -132,18 +144,18 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(aurora
+   dotspacemacs-themes '(dracula
+                         aurora
                          material
                          tangotango
-                         dracula
                          zenburn
                          spacemacs-dark)
-                         
+
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-default-font '("Source Code Pro"
+   dotspacemacs-default-font '("SF Mono" ;; "Source Code Pro"
                                :size 13
                                :weight normal
                                :width normal
@@ -302,6 +314,8 @@ before packages are loaded. If you are unsure, you should try in setting them in
         '(("melpa-cn" . "http://elpa.zilongshanren.com/melpa/")
           ("org-cn" . "http://elpa.zilongshanren.com/org/")
           ("gnu-cn" . "http://elpa.zilongshanren.com/gnu/")))
+  (if (eq system-type 'darwin)
+      (set-fontset-font "fontset-default" 'han '("PingFang SC")))
   )
 
 (defun dotspacemacs/user-config ()
@@ -313,9 +327,11 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   (setq magit-repository-directories '("~/Projects"))
   (global-git-commit-mode t)
+  ;;(setq powerline-default-separator 'utf-8)
   (setq powerline-default-separator 'slant)
-  (setq ns-use-srgb-colorspace nil)
+  ;; (setq ns-use-srgb-colorspace nil)
   (spaceline-compile)
+  
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -325,7 +341,43 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(paradox-github-token t))
+ '(ansi-color-faces-vector
+   [default bold shadow italic underline bold bold-italic bold])
+ '(ansi-color-names-vector
+   ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#ad7fa8" "#8cc4ff" "#eeeeec"])
+ '(evil-want-Y-yank-to-eol nil)
+ '(fci-rule-color "#37474f" t)
+ '(hl-sexp-background-color "#1c1f26")
+ '(nrepl-message-colors
+   (quote
+    ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
+ '(package-selected-packages
+   (quote
+    (pug-mode cmake-ide counsel-dash helm-dash dash-at-point jedi auto-complete jedi-core python-environment epc ctable concurrent deferred find-file-in-project gradle-mode ereader spacemacs-theme zenburn-theme dumb-jump py-isort osx-dictionary dracula-theme names chinese-word-at-point powerline request pyvenv spinner alert log4e gntp hydra parent-mode highlight-indentation helm helm-core gitignore-mode fringe-helper git-gutter+ git-gutter flycheck flx magit magit-popup git-commit with-editor smartparens iedit anzu evil goto-chg undo-tree highlight diminish projectile pkg-info epl ivy sourcekit dash-functional company chinese-pyim-basedict popup pos-tip bind-map bind-key yasnippet packed auctex async f dash s pinyinlib ace-jump-mode avy package-build projectile-sift sicp sift yapfify yaml-mode wgrep web-mode uuidgen tagedit smex slim-mode scss-mode sass-mode pytest pyenv-mode pip-requirements org-projectile org-download ob-ipython mwim mmm-mode markdown-toc markdown-mode live-py-mode link-hint less-css-mode jade-mode ivy-hydra hy-mode haml-mode git-link gh-md eyebrowse evil-visual-mark-mode evil-unimpaired evil-ediff eshell-z emmet-mode cython-mode counsel-projectile counsel swiper company-web web-completion-data company-anaconda column-enforce-mode color-identifiers-mode anaconda-mode pythonic youdao-dictionary xterm-color ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe use-package toc-org spaceline smooth-scrolling smeargle shell-pop rtags reveal-in-osx-finder restart-emacs rainbow-mode rainbow-identifiers rainbow-delimiters quelpa py-yapf popwin persp-mode pcre2el pbcopy paradox pangu-spacing page-break-lines osx-trash org-repo-todo org-pomodoro org-plus-contrib org-bullets open-junk-file neotree multi-term move-text magit-gitflow macrostep lorem-ipsum linum-relative launchctl info+ indent-guide ido-vertical-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers help-fns+ helm-themes helm-swoop helm-projectile helm-org-rifle helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-gutter-fringe git-gutter-fringe+ geiser flycheck-pos-tip flx-ido find-by-pinyin-dired fill-column-indicator fcitx expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eval-sexp-fu eshell-prompt-extras esh-help elpy elisp-slime-nav diff-hl deft define-word company-statistics company-sourcekit company-quickhelp company-auctex clean-aindent-mode chinese-pyim cdlatex buffer-move bracketed-paste auto-yasnippet auto-highlight-symbol auto-compile aurora-theme auctex-latexmk aggressive-indent adaptive-wrap ace-window ace-pinyin ace-link ace-jump-helm-line)))
+ '(paradox-github-token t)
+ '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
+ '(vc-annotate-background nil)
+ '(vc-annotate-color-map
+   (quote
+    ((20 . "#f36c60")
+     (40 . "#ff9800")
+     (60 . "#fff59d")
+     (80 . "#8bc34a")
+     (100 . "#81d4fa")
+     (120 . "#4dd0e1")
+     (140 . "#b39ddb")
+     (160 . "#f36c60")
+     (180 . "#ff9800")
+     (200 . "#fff59d")
+     (220 . "#8bc34a")
+     (240 . "#81d4fa")
+     (260 . "#4dd0e1")
+     (280 . "#b39ddb")
+     (300 . "#f36c60")
+     (320 . "#ff9800")
+     (340 . "#fff59d")
+     (360 . "#8bc34a"))))
+ '(vc-annotate-very-old-color nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

@@ -19,7 +19,9 @@
         elpy
         flycheck
         pyvenv
+        jedi
         py-yapf
+        pyenv-mode
         ))
 
 ;;(setq elpy-excluded-packages '())
@@ -40,7 +42,12 @@
       (add-to-list 'elpy-modules 'elpy-module-company)
       (add-to-list 'elpy-modules 'elpy-module-yasnippet))
 
+    (setq elpy-rpc-backend "jedi")
     (elpy-enable)
+    (elpy-use-ipython)
+    ;;(add-hook 'python-mode-hook 'jedi:setup)
+    ;;(setq jedi:complete-on-dot t)
+
 ;;    (elpy-use-ipython)
     ))
 
@@ -65,3 +72,11 @@
     :config
     (when python-enable-yapf-format-on-save
       (add-hook 'elpy-mode-hook 'py-yapf-enable-on-save))))
+
+(defun elpy/init-jedi ()
+  (use-package jedi
+    :ensure t))
+
+(defun elpy/init-pyenv-mode()
+  (use-package pyenv-mode
+    :ensure t))

@@ -33,7 +33,9 @@
   '(htmlize
     org-plus-contrib
     deft
-    org-ref
+    ;;helm-bibtex
+    ;;org-ref
+    ob-ipython
     cdlatex
     helm-org-rifle
     )
@@ -166,7 +168,8 @@ Each entry is either:
       (setq org-blank-before-new-entry '((heading)
                                          (plain-list-item . auto)))
       (setq org-insert-heading-respect-content nil)
-
+      (setq org-startup-truncated nil)
+      
       ;; org-capture
       (setq org-capture-templates
             '(("t" "todo" entry (file (concat org-directory "refile.org"))
@@ -491,7 +494,7 @@ as the default task."
                      ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                      ("\\paragraph{%s}" . "\\paragraph*{%s}")
                      ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-      (setq org-latex-processes
+      (setq org-latex-pdf-process
             '("xelatex -interaction nonstopmode -output-directory %o %f"
               "xelatex -interaction nonstopmode -output-directory %o %f")
             )
@@ -728,5 +731,15 @@ as the default task."
       (spacemacs/set-leader-keys-for-major-mode 'org-mode
         "r" 'helm-org-rifle-current-buffer))
     ))
+
+(defun org-enhanced/init-ob-ipython()
+  (use-package ob-ipython
+    :defer t
+    :init
+    (progn
+      (require 'ob-ipython)
+      (setq org-confirm-babel-evaluate nil)
+      (add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
+      )))
 ;;; packages.el ends here
  
