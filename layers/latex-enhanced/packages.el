@@ -31,7 +31,6 @@
 
 (defconst latex-enhanced-packages
   '(auctex
-    auctex-latexmk
     cdlatex)
   "The list of Lisp packages required by the latex-enhanced layer.
 
@@ -60,11 +59,8 @@ Each entry is either:
       - A list beginning with the symbol `recipe' is a melpa
         recipe.  See: https://github.com/milkypostman/melpa#recipe-format")
 
-(defun latex-enhanced/init-cdlatex()
-  (use-package cdlatex
-    :defer t
-    :init
-    (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)))
+(defun latex-enhanced/post-init-cdlatex()
+    (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex))
 
 (defun latex-enhanced/post-init-auctex ()
   ;;(with-eval-after-load 'tex

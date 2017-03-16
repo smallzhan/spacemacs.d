@@ -30,11 +30,12 @@
 ;;; Code:
  
 (defconst org-enhanced-packages
-  '(htmlize
+  '(
     org-plus-contrib
     deft
     ;;helm-bibtex
     ;;org-ref
+    ox-gfm
     ob-ipython
     cdlatex
     helm-org-rifle
@@ -148,6 +149,14 @@ Each entry is either:
                             ("CANCELLED" . ?c)
                             ("READING" . ?a)
                             ))
+      (setq org-emphasis-regexp-components
+            '(
+              "：，。、  \t('\"{" ;pre
+              "- ：，。、 \t.,:!?;'\")}\\" ;post
+              " \t\r\n,\"'" ;border *forbidden*
+              "." ;body-regexp
+              1 ; newline
+              ))
 
       ;; Allow setting single tags without the menu
       (setq org-fast-tag-selection-single-key 'expert)
@@ -503,17 +512,7 @@ as the default task."
               (ps-landscape-mode t)
               (htmlize-output-type 'css)))
 
-      (require 'ox-gfm) 
-      (defun org-gfm-publish-to-markdown (plist filename pub-dir)
-        "Publish an org file to MARKDOWN with GFM.
 
-    FILENAME is the filename of the Org file to be published.  PLIST
-    is the property list for the given project.  PUB-DIR is the
-    publishing directory.
-
-    Return output file name."
-        (org-publish-org-to 'gfm filename ".markdown"
-                            plist pub-dir))
 
 
       (setq org-html-head-include-default-style nil)
@@ -741,5 +740,24 @@ as the default task."
       (setq org-confirm-babel-evaluate nil)
       (add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
       )))
+
+(defun org-enhanced/post-init-ox-gfm()
+  (with-eval-after-load 'ox-gfm
+    (progn
+      (defun org-gfm-publish-to-markdown (plist filename pub-dir)
+        "Publish an org file to MARKDOWN with GFM.
+
+    FILENAME is the filename of the Org file to be published.  PLIST
+    is the property list for the given project.  PUB-DIR is the
+    publishing directory.
+
+    Return output file name."
+        (org-publish-org-to 'gfm filename ".markdown"
+                            plist pub-dir))
+      )))
+
+(defun org-enhanced/init-cdlatex()
+  (use-package cdlatex
+    :defer t))
 ;;; packages.el ends here
  
