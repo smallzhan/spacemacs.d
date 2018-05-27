@@ -38,7 +38,7 @@
     ox-gfm
     ob-ipython
     cdlatex
-    helm-org-rifle
+    ;;helm-org-rifle
     )
   "The list of Lisp packages required by the org-enhanced layer.
 
