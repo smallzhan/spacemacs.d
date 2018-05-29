@@ -181,19 +181,19 @@ Each entry is either:
       
       ;; org-capture
       (setq org-capture-templates
-            '(("t" "todo" entry (file (concat org-directory "refile.org"))
+            '(("t" "todo" entry (file  "refile.org")
                "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
-              ("r" "respond" entry (file (concat org-directory "refile.org"))
+              ("r" "respond" entry (file  "refile.org")
                "* TODO Respond to %:from on %:subject\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t)
-              ("n" "note" entry (file (concat org-directory "refile.org"))
+              ("n" "note" entry (file  "refile.org")
                "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
-              ("j" "Journal" entry (file+datetree (concat org-directory "diary.org"))
+              ("j" "Journal" entry (file+datetree  "diary.org")
                "* %?\n%U\n" :clock-in t :clock-resume t)
-              ("w" "org-protocol" entry (file (concat org-directory "refile.org"))
+              ("w" "org-protocol" entry (file "refile.org")
                "* TODO Review %c\n%U\n" :immediate-finish t)
-              ("p" "Phone call" entry (file (concat org-directory "refile.org"))
+              ("p" "Phone call" entry (file  "refile.org")
                "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
-              ("h" "Habit" entry (file (concat org-directory "refile.org"))
+              ("h" "Habit" entry (file  "refile.org")
                "* ACTIVE %?\n%U\n%a\nSCHEDULED: %t .+1d/3d\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: ACTIVE\n:END:\n")))
 
       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
