@@ -44,7 +44,7 @@ values."
      ivy
      (auto-completion :variables auto-completion-enable-sort-by-usage t
                       auto-completion-enable-snippets-in-popup t
-                      :disabled-for org markdown)
+                      :disable-for org markdown latex)
      better-defaults
      emacs-lisp
      osx
@@ -55,8 +55,8 @@ values."
      ;; markdown
      ;; org
      (shell :variables
-             shell-default-height 30
-             shell-default-position 'bottom)
+            shell-default-height 30
+            shell-default-position 'bottom)
      ;; spell-checking
      syntax-checking
      ;; elpy
@@ -73,6 +73,7 @@ values."
      (chinese :variables
               chinese-enable-fcitx t
               chinese-enable-youdao-dict t)
+     
      dash
      ;;my-swift
      ;;racket
@@ -169,11 +170,15 @@ values."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-default-font '("SF Mono" ;; "Source Code Pro"
-                               :size 13
-                               :weight normal
-                               :width normal
-                               :powerline-scale 1.1)
+
+   dotspacemacs-default-font (let ((fonts '(("SF Mono" . 13) ("Consolas" . 14) ("Source Code Pro" . 13))))
+                               (mapcar (lambda (font)
+                                         `(,(car font)
+                                           :size ,(cdr font)
+                                           :weight normal
+                                           :width normal
+                                           :powerline-scale 1.1))
+                                       fonts))
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The key used for Emacs commands (M-x) (after pressing on the leader key).
@@ -284,7 +289,7 @@ values."
    ;; If non nil show the color guide hint for transient state keys. (default t)
    dotspacemacs-show-transient-state-color-guide t
    ;; If non nil unicode symbols are displayed in the mode line. (default t)
-   dotspacemacs-mode-line-unicode-symbols t
+   dotspacemacs-mode-line-unicode-symbols nil
    ;; If non nil smooth scrolling (native-scrolling) is enabled. Smooth
    ;; scrolling overrides the default behavior of Emacs which recenters point
    ;; when it reaches the top or bottom of the screen. (default t)
@@ -345,10 +350,12 @@ before packages are loaded. If you are unsure, you should try in setting them in
           ("org-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
           ;;("gnu"      . "http://elpa.gnu.org/packages/")
           ("gnu-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-  ))
+          ))
   (setq use-package-verbose t)
   (if (eq system-type 'darwin)
-      (set-fontset-font "fontset-default" 'han '("PingFang SC")))
+      (set-fontset-font "fontset-default" 'han '("PingFang SC"))
+    (set-fontset-font "fontset-default" 'han '("Microsoft Yahei"))
+    )
   )
 
 (defun dotspacemacs/user-config ()
@@ -364,7 +371,6 @@ you should place your code here."
   (setq powerline-default-separator nil)
   ;;(setq ns-use-srgb-colorspace nil)
   (spaceline-compile)
-  
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -427,57 +433,57 @@ you should place your code here."
 This is an auto-generated function, do not modify its content directly, use
 Emacs customize menu instead.
 This function is called at the very end of Spacemacs initialization."
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ansi-color-faces-vector
-   [default bold shadow italic underline bold bold-italic bold])
- '(ansi-color-names-vector
-   ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#ad7fa8" "#8cc4ff" "#eeeeec"])
- '(custom-safe-themes
-   (quote
-    ("5a0eee1070a4fc64268f008a4c7abfda32d912118e080e18c3c865ef864d1bea" default)))
- '(evil-want-Y-yank-to-eol nil)
- '(fci-rule-color "#37474f" t)
- '(geiser-active-implementations (quote (racket)))
- '(hl-sexp-background-color "#1c1f26")
- '(nrepl-message-colors
-   (quote
-    ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
- '(package-selected-packages
-   (quote
-    (json-navigator hierarchy lua-mode apropospriate-theme quack racket-mode faceup web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern tern coffee-mode xterm-color use-package spaceline persp-mode pcache org-plus-contrib neotree ox-gfm hide-comnt window-purpose imenu-list esup levenshtein pug-mode cmake-ide counsel-dash dash-at-point jedi auto-complete jedi-core python-environment epc ctable concurrent deferred find-file-in-project gradle-mode ereader spacemacs-theme zenburn-theme dumb-jump py-isort osx-dictionary dracula-theme names chinese-word-at-point powerline request pyvenv spinner alert log4e gntp hydra parent-mode highlight-indentation gitignore-mode fringe-helper git-gutter+ git-gutter flycheck flx magit-popup git-commit with-editor iedit anzu evil goto-chg undo-tree highlight diminish projectile pkg-info epl ivy sourcekit dash-functional company chinese-pyim-basedict popup pos-tip bind-map bind-key yasnippet packed auctex async f dash s pinyinlib ace-jump-mode avy package-build projectile-sift sicp sift yapfify yaml-mode wgrep web-mode uuidgen tagedit smex slim-mode scss-mode sass-mode pytest pyenv-mode pip-requirements org-projectile org-download ob-ipython mwim mmm-mode markdown-toc markdown-mode live-py-mode link-hint less-css-mode jade-mode ivy-hydra hy-mode haml-mode git-link gh-md eyebrowse evil-visual-mark-mode evil-unimpaired evil-ediff eshell-z emmet-mode cython-mode counsel-projectile counsel swiper company-web web-completion-data company-anaconda column-enforce-mode color-identifiers-mode anaconda-mode pythonic youdao-dictionary ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe toc-org smooth-scrolling smeargle shell-pop rtags reveal-in-osx-finder restart-emacs rainbow-mode rainbow-identifiers rainbow-delimiters quelpa py-yapf popwin pcre2el pbcopy paradox pangu-spacing page-break-lines osx-trash org-repo-todo org-pomodoro org-bullets open-junk-file multi-term move-text magit-gitflow macrostep lorem-ipsum linum-relative launchctl info+ indent-guide ido-vertical-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers help-fns+ google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-gutter-fringe git-gutter-fringe+ geiser flycheck-pos-tip flx-ido find-by-pinyin-dired fill-column-indicator fcitx expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eval-sexp-fu eshell-prompt-extras esh-help elpy elisp-slime-nav diff-hl deft define-word company-statistics company-sourcekit company-quickhelp company-auctex clean-aindent-mode chinese-pyim cdlatex buffer-move bracketed-paste auto-yasnippet auto-highlight-symbol auto-compile aurora-theme auctex-latexmk aggressive-indent adaptive-wrap ace-window ace-pinyin ace-link)))
- '(paradox-github-token t)
- '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
- '(quack-default-program "racket")
- '(vc-annotate-background nil)
- '(vc-annotate-color-map
-   (quote
-    ((20 . "#f36c60")
-     (40 . "#ff9800")
-     (60 . "#fff59d")
-     (80 . "#8bc34a")
-     (100 . "#81d4fa")
-     (120 . "#4dd0e1")
-     (140 . "#b39ddb")
-     (160 . "#f36c60")
-     (180 . "#ff9800")
-     (200 . "#fff59d")
-     (220 . "#8bc34a")
-     (240 . "#81d4fa")
-     (260 . "#4dd0e1")
-     (280 . "#b39ddb")
-     (300 . "#f36c60")
-     (320 . "#ff9800")
-     (340 . "#fff59d")
-     (360 . "#8bc34a"))))
- '(vc-annotate-very-old-color nil))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-)
+  (custom-set-variables
+   ;; custom-set-variables was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(ansi-color-faces-vector
+     [default bold shadow italic underline bold bold-italic bold])
+   '(ansi-color-names-vector
+     ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#ad7fa8" "#8cc4ff" "#eeeeec"])
+   '(custom-safe-themes
+     (quote
+      ("5a0eee1070a4fc64268f008a4c7abfda32d912118e080e18c3c865ef864d1bea" default)))
+   '(evil-want-Y-yank-to-eol nil)
+   '(fci-rule-color "#37474f" t)
+   '(geiser-active-implementations (quote (racket)))
+   '(hl-sexp-background-color "#1c1f26")
+   '(nrepl-message-colors
+     (quote
+      ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
+   '(package-selected-packages
+     (quote
+      (cnfonts visual-fill-column org-cliplink avy-zap lua-mode apropospriate-theme quack racket-mode faceup web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern tern coffee-mode xterm-color use-package spaceline persp-mode pcache org-plus-contrib neotree ox-gfm hide-comnt window-purpose imenu-list esup levenshtein pug-mode cmake-ide counsel-dash dash-at-point jedi auto-complete jedi-core python-environment epc ctable concurrent deferred find-file-in-project gradle-mode ereader spacemacs-theme zenburn-theme dumb-jump py-isort osx-dictionary dracula-theme names chinese-word-at-point powerline request pyvenv spinner alert log4e gntp hydra parent-mode highlight-indentation gitignore-mode fringe-helper git-gutter+ git-gutter flycheck flx magit-popup git-commit with-editor iedit anzu evil goto-chg undo-tree highlight diminish projectile pkg-info epl ivy sourcekit dash-functional company chinese-pyim-basedict popup pos-tip bind-map bind-key yasnippet packed auctex async f dash s pinyinlib ace-jump-mode avy package-build projectile-sift sicp sift yapfify yaml-mode wgrep web-mode uuidgen tagedit smex slim-mode scss-mode sass-mode pytest pyenv-mode pip-requirements org-projectile org-download ob-ipython mwim mmm-mode markdown-toc markdown-mode live-py-mode link-hint less-css-mode jade-mode ivy-hydra hy-mode haml-mode git-link gh-md eyebrowse evil-visual-mark-mode evil-unimpaired evil-ediff eshell-z emmet-mode cython-mode counsel-projectile counsel swiper company-web web-completion-data company-anaconda column-enforce-mode color-identifiers-mode anaconda-mode pythonic youdao-dictionary ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe toc-org smooth-scrolling smeargle shell-pop rtags reveal-in-osx-finder restart-emacs rainbow-mode rainbow-identifiers rainbow-delimiters quelpa py-yapf popwin pcre2el pbcopy paradox pangu-spacing page-break-lines osx-trash org-repo-todo org-pomodoro org-bullets open-junk-file multi-term move-text magit-gitflow macrostep lorem-ipsum linum-relative launchctl info+ indent-guide ido-vertical-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers help-fns+ google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-gutter-fringe git-gutter-fringe+ geiser flycheck-pos-tip flx-ido find-by-pinyin-dired fill-column-indicator fcitx expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eval-sexp-fu eshell-prompt-extras esh-help elpy elisp-slime-nav diff-hl deft define-word company-statistics company-sourcekit company-quickhelp company-auctex clean-aindent-mode chinese-pyim cdlatex buffer-move bracketed-paste auto-yasnippet auto-highlight-symbol auto-compile aurora-theme auctex-latexmk aggressive-indent adaptive-wrap ace-window ace-pinyin ace-link)))
+   '(paradox-github-token t)
+   '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
+   '(quack-default-program "racket")
+   '(vc-annotate-background nil)
+   '(vc-annotate-color-map
+     (quote
+      ((20 . "#f36c60")
+       (40 . "#ff9800")
+       (60 . "#fff59d")
+       (80 . "#8bc34a")
+       (100 . "#81d4fa")
+       (120 . "#4dd0e1")
+       (140 . "#b39ddb")
+       (160 . "#f36c60")
+       (180 . "#ff9800")
+       (200 . "#fff59d")
+       (220 . "#8bc34a")
+       (240 . "#81d4fa")
+       (260 . "#4dd0e1")
+       (280 . "#b39ddb")
+       (300 . "#f36c60")
+       (320 . "#ff9800")
+       (340 . "#fff59d")
+       (360 . "#8bc34a"))))
+   '(vc-annotate-very-old-color nil))
+  (custom-set-faces
+   ;; custom-set-faces was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(org-table ((t (:foreground "#bd93f9" :family "Inconsolata")))))
+  )
