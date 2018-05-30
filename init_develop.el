@@ -44,6 +44,7 @@ values."
      ivy
      (auto-completion :variables auto-completion-enable-sort-by-usage t
                       auto-completion-enable-snippets-in-popup t
+                      auto-completion-enable-help-tooltip t
                       :disable-for org markdown latex)
      better-defaults
      emacs-lisp
