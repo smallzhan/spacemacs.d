@@ -540,9 +540,9 @@ as the default task."
                :auto-index t)
 
               ("homepage"
-               :base-directory , (concat org-directory "../homepage")
+               :base-directory , (expand-file-name (concat org-directory "../homepage"))
                :base-extension "org"
-               :publishing-directory , (concat org-directory "../public_html")
+               :publishing-directory , (expand-file-name (concat org-directory "../public_html"))
                :publishing-function org-html-publish-to-html
                :headline-levels 3
                :section-numbers nil
@@ -557,9 +557,9 @@ as the default task."
                :auto-postamble nil
                :auto-index nil)
               ("smallzhan-github-io" ;; settings for cute-jumper.github.io
-               :base-directory , (concat org-directory "../blog")
+               :base-directory , (expand-file-name (concat org-directory "../blog"))
                :base-extension "org"
-               :publishing-directory "~/Projects/smallzhan.github.io"
+               :publishing-directory , (expand-file-name "~/Projects/smallzhan.github.io")
                :recursive t
                ;;         :publishing-function org-html-publish-to-html
                :publishing-function org-gfm-publish-to-markdown
