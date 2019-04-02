@@ -737,7 +737,7 @@ as the default task."
     (progn
       (require 'ob-ipython)
       (setq org-confirm-babel-evaluate nil)
-      (setq ob-ipython-command "/Users/guoqiang/.venvs/py3/bin/jupyter")
+      ;;(setq ob-ipython-command "/Users/guoqiang/.venvs/py3/bin/jupyter")
       (add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
       )))
 

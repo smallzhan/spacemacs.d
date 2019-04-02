@@ -59,6 +59,10 @@ Each entry is either:
       - A list beginning with the symbol `recipe' is a melpa
         recipe.  See: https://github.com/milkypostman/melpa#recipe-format")
 
+(defun latex-enhanced/init-auctex()
+  (use-package auctex
+  :defer t))
+
 (defun latex-enhanced/post-init-cdlatex()
     (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex))
 

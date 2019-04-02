@@ -78,6 +78,8 @@ This function should only modify configuration layer settings."
                   node-add-modules-path t
                   javascript-backend 'lsp
                   javascript-fmt-tool 'prettier)
+      (python :variables
+              python-backend 'lsp)
      )
 
    ;; List of additional packages that will be installed without being
@@ -210,12 +212,17 @@ It should only modify the values of Spacemacs settings."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(zenburn
-                         dracula
-                         material
-                         tangotango
-                         zenburn
-                         spacemacs-dark)
+   dotspacemacs-themes '(doom-one
+                         doom-nord
+                         doom-spacegrey
+                         doom-nova
+                         doom-opera
+                         ;;doom-sourcerer
+                         doom-city-lights
+                         doom-vibrant
+                         doom-molokai
+                         ;;doom-Iosvkem
+                         doom-dracula)
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
    ;; `all-the-icons', `custom', `doom', `vim-powerline' and `vanilla'. The
@@ -224,7 +231,7 @@ It should only modify the values of Spacemacs settings."
    ;; refer to the DOCUMENTATION.org for more info on how to create your own
    ;; spaceline theme. Value can be a symbol or list with additional properties.
    ;; (default '(spacemacs :separator wave :separator-scale 1.5))
-   dotspacemacs-mode-line-theme '(spacemacs :separator nil :separator-scale 1.2)
+   dotspacemacs-mode-line-theme '(doom :separator nil :separator-scale 1.2)
 
    ;; If non-nil the cursor color matches the state color in GUI Emacs.
    ;; (default t)
@@ -257,7 +264,7 @@ It should only modify the values of Spacemacs settings."
    ;; The leader key accessible in `emacs state' and `insert state'
    ;; (default "M-m")
    dotspacemacs-emacs-leader-key "M-m"
-
+   
    ;; Major mode leader key is a shortcut key which is the equivalent of
    ;; pressing `<leader> m`. Set it to `nil` to disable it. (default ",")
    dotspacemacs-major-mode-leader-key ","
@@ -479,15 +486,15 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   (setq user-full-name "Guoqiang Jin")
   (setq user-mail-address "ustczhan@gmail.com")
   (setq configuration-layer-elpa-archives
-        '(("melpa-stable" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa-stable/")
+        '(;;("melpa-stable" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa-stable/")
           ("melpa-cn" .     "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
           ("org-cn" .       "https://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
           ("gnu-cn" .       "https://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")))
-  (setq package-archive-priorities
-        '(("melpa-stable" . 10)
-          ("gnu-cn" . 5)
-          ("org-cn" . 10)
-          ("melpa-cn" . 0)))
+ ;; (setq package-archive-priorities
+ ;;       '(("melpa-stable" . 10)
+ ;;         ("gnu-cn" . 5)
+ ;;         ("org-cn" . 10)
+ ;;         ("melpa-cn" . 0)))
   (setq use-package-verbose t)
   (if (eq system-type 'darwin)
       (set-fontset-font "fontset-default" 'han (font-spec :family "PingFang SC" :size 14))
@@ -544,13 +551,17 @@ This function is called at the very end of Spacemacs initialization."
      ("XXX" . "#dc752f")
      ("XXXX" . "#dc752f")
      ("???" . "#dc752f"))))
+ '(nrepl-message-colors
+   (quote
+    ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
  '(package-selected-packages
    (quote
-    (lsp-javascript-flow ccls zenburn-theme youdao-dictionary yasnippet-snippets xterm-color ws-butler writeroom-mode winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package unfill treemacs-projectile treemacs-evil toc-org tangotango-theme symon string-inflection spaceline-all-the-icons smex shell-pop reveal-in-osx-finder restart-emacs request rainbow-mode rainbow-identifiers rainbow-delimiters pyim popwin persp-mode pcre2el password-generator paradox pangu-spacing ox-gfm overseer osx-trash osx-dictionary org-projectile org-pomodoro org-mime org-download org-bullets org-brain open-junk-file ob-ipython nameless mwim multi-term move-text material-theme macrostep lorem-ipsum link-hint launchctl ivy-yasnippet ivy-xref ivy-purpose ivy-hydra indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-make google-translate golden-ratio gnuplot git-gutter-fringe git-gutter-fringe+ fuzzy font-lock+ flycheck-pos-tip flx-ido find-by-pinyin-dired fill-column-indicator fcitx eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help elisp-slime-nav editorconfig dumb-jump dracula-theme dotenv-mode doom-modeline diminish diff-hl dash-at-point counsel-projectile counsel-dash company-statistics company-quickhelp column-enforce-mode color-identifiers-mode clean-aindent-mode chinese-conv centered-cursor-mode cdlatex browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-pinyin ace-link))))
+    (auctex doom-themes vmd-mode mmm-mode markdown-toc gh-md emoji-cheat-sheet-plus company-emoji lsp-javascript-flow ccls zenburn-theme youdao-dictionary yasnippet-snippets xterm-color ws-butler writeroom-mode winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package unfill treemacs-projectile treemacs-evil toc-org tangotango-theme symon string-inflection spaceline-all-the-icons smex shell-pop reveal-in-osx-finder restart-emacs request rainbow-mode rainbow-identifiers rainbow-delimiters pyim popwin persp-mode pcre2el password-generator paradox pangu-spacing ox-gfm overseer osx-trash osx-dictionary org-projectile org-pomodoro org-mime org-download org-bullets org-brain open-junk-file ob-ipython nameless mwim multi-term move-text material-theme macrostep lorem-ipsum link-hint launchctl ivy-yasnippet ivy-xref ivy-purpose ivy-hydra indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-make google-translate golden-ratio gnuplot git-gutter-fringe git-gutter-fringe+ fuzzy font-lock+ flycheck-pos-tip flx-ido find-by-pinyin-dired fill-column-indicator fcitx eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help elisp-slime-nav editorconfig dumb-jump dracula-theme dotenv-mode doom-modeline diminish diff-hl dash-at-point counsel-projectile counsel-dash company-statistics company-quickhelp column-enforce-mode color-identifiers-mode clean-aindent-mode chinese-conv centered-cursor-mode cdlatex browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-pinyin ace-link)))
+ '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-)
+)   
