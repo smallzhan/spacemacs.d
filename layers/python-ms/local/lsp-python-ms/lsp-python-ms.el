@@ -3,7 +3,7 @@
 ;; Author: Charl Botha
 ;; Maintainer: Andrew Christianson
 ;; Version: 0.1.0
-;; Package-Requires: (cl-lib lsp-mode python json (emacs "24.4"))
+;; Package-Requires: ((cl-lib "0.6.1") (lsp-mode "6.0") (python "0.26.1") (json "1.4") (emacs "24.4"))
 ;; Homepage: https://github.com/andrew-christianson/lsp-python-ms
 ;; Keywords: languages tools
 
@@ -34,6 +34,7 @@
 (require 'python)
 (require 'json)
 (require 'projectile nil 'noerror)
+(require 'find-file-in-project nil 'noerror)
 
 ;; forward declare variable
 (defvar lsp-render-markdown-markup-content)
@@ -85,7 +86,7 @@ You only need to set this if dotnet is not on your path.")
 
 The WORKSPACE-ROOT will be prepended to the list of python search
 paths and then the entire list will be json-encoded."
-  (let ((python (executable-find "python"))
+  (let ((python (executable-find "python3"))
         (init "from __future__ import print_function; import sys; import json;")
         (ver "print(\"%s.%s\" % (sys.version_info[0], sys.version_info[1]));")
         (sp (concat "sys.path.insert(0, '" workspace-root "'); print(json.dumps(sys.path))")))
@@ -120,7 +121,7 @@ directory"
         (lsp-python-ms--get-python-ver-and-syspath workspace-root)
       `(:interpreter
         (:properties (:InterpreterPath
-                      ,(executable-find "python")
+                      ,(executable-find "python3")
                       ;; this database dir will be created if required
                       :DatabasePath ,(expand-file-name (directory-file-name lsp-python-ms-cache-dir))
                       :Version ,pyver))
@@ -182,30 +183,19 @@ other handlers. "
           (concat lsp-python-ms-dir "Microsoft.Python.LanguageServer.dll")))
    (t (error "Could find Microsoft python language server"))))
 
-(if (fboundp 'lsp-register-client)
-    ;; New lsp-mode
-    (lsp-register-client
-     (make-lsp-client
-      :new-connection (lsp-stdio-connection 'lsp-python-ms--command-string)
-      :major-modes '(python-mode)
-      :server-id 'mspyls
-      :priority 1
-      :initialization-options 'lsp-python-ms--extra-init-params
-      :notification-handlers (lsp-ht ("python/languageServerStarted"
-                                      'lsp-python-ms--language-server-started-callback)
-                                     ("telemetry/event" 'ignore)
-                                     ;; TODO handle this more gracefully
-                                     ("python/reportProgress" 'ignore)
-                                     ("python/beginProgress" 'ignore)
-                                     ("python/endProgress" 'ignore))))
-  ;; Old lsp-mode
-  (lsp-define-stdio-client
-   lsp-python "python"
-   #'lsp-python-ms--workspace-root
-   nil
-   :command-fn 'lsp-python-ms--command-string
-   :extra-init-params #'lsp-python-ms--extra-init-params
-   :initialize #'lsp-python-ms--client-initialized))
+(lsp-register-client
+ (make-lsp-client
+  :new-connection (lsp-stdio-connection 'lsp-python-ms--command-string)
+  :major-modes '(python-mode)
+  :server-id 'mspyls
+  :priority 1
+  :initialization-options 'lsp-python-ms--extra-init-params
+  :notification-handlers (lsp-ht ("python/languageServerStarted" 'lsp-python-ms--language-server-started-callback)
+                                 ("telemetry/event" 'ignore)
+                                 ;; TODO handle this more gracefully
+                                 ("python/reportProgress" 'ignore)
+                                 ("python/beginProgress" 'ignore)
+                                 ("python/endProgress" 'ignore))))
 
 (provide 'lsp-python-ms)
 
