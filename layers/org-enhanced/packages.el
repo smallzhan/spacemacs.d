@@ -683,6 +683,7 @@ as the default task."
          (ditaa . t)
          (C . nil)
          (latex . t)
+         (ipython . t)
          ))
 
       (defun my-org-archive-done-tasks ()
@@ -733,9 +734,8 @@ as the default task."
 (defun org-enhanced/init-ob-ipython()
   (use-package ob-ipython
     :defer t
-    :init
+    :config
     (progn
-      (require 'ob-ipython)
       (setq org-confirm-babel-evaluate nil)
       ;;(setq ob-ipython-command "/Users/guoqiang/.venvs/py3/bin/jupyter")
       (add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)

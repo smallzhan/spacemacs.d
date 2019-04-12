@@ -348,7 +348,7 @@ used to restore window configuration after apply changed.")
 (defvar color-rg-hit-count 0
   "Search keyword hit counter.")
 
-(defvar color-rg-regexp-file "^[/\\~].*"
+(defvar color-rg-regexp-file "^[/\\~].*\\|^[a-z]:.*"
   "Regexp to match filename.")
 
 (defvar color-rg-regexp-split-line "\n\n"
@@ -428,7 +428,7 @@ used to restore window configuration after apply changed.")
   (setq major-mode 'color-rg-mode)
   (setq mode-name "color-rg")
   (read-only-mode 1)
-  (font-lock-mode -1)
+  ;;(font-lock-mode -1)
   (color-rg-highlight-keywords)
   (use-local-map color-rg-mode-map)
   (add-hook 'compilation-filter-hook 'color-rg-filter nil t)
@@ -447,7 +447,7 @@ used to restore window configuration after apply changed.")
      ("^\\([1-9][0-9]*\\)\\(:\\)\\([1-9][0-9]*\\)\\(:\\)" 2 'color-rg-font-lock-position-splitter)
      ("^\\([1-9][0-9]*\\)\\(:\\)\\([1-9][0-9]*\\)\\(:\\)" 3 'color-rg-font-lock-column-number)
      ("^\\([1-9][0-9]*\\)\\(:\\)\\([1-9][0-9]*\\)\\(:\\)" 4 'color-rg-font-lock-position-splitter)
-     ("^[/\\~].*" . 'color-rg-font-lock-file)
+     ("^[/\\~].*\\|^[a-z]:.*" . 'color-rg-font-lock-file)
      ))
   ;; NOTE:
   ;; Because search line maybe just contains *half* of string/comment that make rest content of buffer mark as string.
@@ -476,20 +476,19 @@ This function is called from `compilation-filter-hook'."
         ;; Highlight filename.
         (goto-char beg)
         (while (re-search-forward "^\033\\[[0]*m\033\\[35m\\(.*?\\)\033\\[[0]*m$" end 1)
-          (replace-match (concat (propertize (match-string 1)
-                                             'face nil 'font-lock-face 'color-rg-font-lock-file))
-                         t t))
+         (replace-match (concat (propertize (match-string 1)
+                                            'face nil 'font-lock-face 'color-rg-font-lock-file))
+                        t t))
 
         ;; Highlight rg matches and delete marking sequences.
         (goto-char beg)
         (while (re-search-forward "\033\\[[0]*m\033\\[[3]*1m\033\\[[3]*1m\\(.*?\\)\033\\[[0]*m" end 1)
-          (replace-match (propertize (match-string 1)
-                                     'face nil 'font-lock-face 'color-rg-font-lock-match)
-                         t t)
-          (setq color-rg-hit-count (+ color-rg-hit-count 1))
-          (color-rg-update-header-line)
-          )
-
+         (replace-match (propertize (match-string 1)
+                                    'face nil 'font-lock-face 'color-rg-font-lock-match)
+                        t t)
+         (setq color-rg-hit-count (+ color-rg-hit-count 1))
+         (color-rg-update-header-line)
+         )
         ;; Delete all remaining escape sequences
         (goto-char beg)
         (while (re-search-forward "\033\\[[0-9;]*[0mK]" end 1)
