@@ -493,15 +493,15 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   (setq user-full-name "Guoqiang Jin")
   (setq user-mail-address "ustczhan@gmail.com")
   (setq configuration-layer-elpa-archives
-        '(;;("melpa-stable" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa-stable/")
+        '(("melpa-stable" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa-stable/")
           ("melpa-cn" .     "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
           ("org-cn" .       "https://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
           ("gnu-cn" .       "https://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")))
- ;; (setq package-archive-priorities
- ;;       '(("melpa-stable" . 10)
- ;;         ("gnu-cn" . 5)
- ;;         ("org-cn" . 10)
- ;;         ("melpa-cn" . 0)))
+ (setq package-archive-priorities
+       '(("melpa-stable" . 10)
+         ("gnu-cn" . 5)
+         ("org-cn" . 10)
+         ("melpa-cn" . 0)))
   (setq use-package-verbose t)
   (if (eq system-type 'darwin)
       (set-fontset-font "fontset-default" 'han (font-spec :family "PingFang SC" :size 14))
@@ -510,6 +510,8 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
       (setq ms-pyls-executable "e:/Projects/python-language-server/output/bin/Release/win10-x64/publish/Microsoft.Python.LanguageServer.exe")
     (setq ms-pyls-executable "MicroSoft.Python.LanguageServer"))
   ;;(global-git-commit-mode t)
+  (add-to-list 'load-path "~/.spacemacs.d/elisp/")
+  (require 'lv)
   )
 
 (defun dotspacemacs/user-load ()
@@ -525,8 +527,8 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
-  (setq magit-repository-directories '("~/Projects"))
-  (add-to-list 'load-path "~/.spacemacs.d/elisp/")
+  ;;(setq magit-repository-directories '("~/Projects"))
+  ;;(add-to-list 'load-path "~/.spacemacs.d/elisp/")
   (use-package color-rg)
   ;; (use-package color-moccur
   ;;   :commands (isearch-moccur isearch-all)
