@@ -719,17 +719,6 @@ as the default task."
                                      (case-fn . downcase)))
       )))
 
-(defun org-enhanced/init-helm-org-rifle()
-  (use-package helm-org-rifle
-    :defer t
-    :init
-    (progn
-     ;; (require 'helm-org-rifle)
-      (spacemacs/set-leader-keys
-        "hr" 'helm-org-rifle)
-      (spacemacs/set-leader-keys-for-major-mode 'org-mode
-        "r" 'helm-org-rifle-current-buffer))
-    ))
 
 (defun org-enhanced/init-ob-ipython()
   (use-package ob-ipython
@@ -759,5 +748,6 @@ as the default task."
 (defun org-enhanced/init-cdlatex()
   (use-package cdlatex
     :defer t))
+
 ;;; packages.el ends here
  
