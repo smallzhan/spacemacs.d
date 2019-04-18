@@ -31,7 +31,7 @@
  
 (defconst org-enhanced-packages
   '(
-    org-plus-contrib
+    org
     deft
     ;;helm-bibtex
     ;;org-ref
@@ -91,7 +91,7 @@ Each entry is either:
     )
   )
 
-(defun org-enhanced/post-init-org-plus-contrib ()
+(defun org-enhanced/post-init-org ()
   (with-eval-after-load 'org
     (progn
       (setq org-directory org-base-directory
@@ -226,7 +226,7 @@ Each entry is either:
         (not (member (nth 2 (org-heading-components)) org-done-keywords)))
       (setq org-refile-target-verify-function 'bh/verify-refile-target)
 
-      (require 'org-expiry)
+      ;;(require 'org-expiry)
       ;; Configure it a bit to my liking
       (setq
        org-expiry-created-property-name "CREATED"

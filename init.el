@@ -33,15 +33,13 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(lua
+   '(
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
      ;; `M-m f e R' (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      ivy
-     ;; auto-completion
-     ;; better-defaults
      emacs-lisp
      git
      ;; markdown
@@ -51,20 +49,12 @@ This function should only modify configuration layer settings."
                       auto-completion-enable-snippets-in-popup t
                       auto-completion-enable-help-tooltip t
                       :disable-for org markdowm latex)
-     ;;better-defaults
      osx
      (org :variables
           org-enable-github-support t)
-     
-     ;; org
-      ;;(shell :variables
-      ;;       shell-default-height 30
-      ;;       shell-default-position 'bottom)
-     ;; spell-checking
+
       syntax-checking
-      (version-control :variables
-                       version-control-diff-tool 'git-gutter+
-                       version-control-global-margin t)
+      version-control
       colors
       (chinese :variables
                chinese-enable-fcitx t
@@ -85,6 +75,8 @@ This function should only modify configuration layer settings."
               python-backend 'lsp)
       ;(python-ms :variables
       ;           ms-pyls-exe ms-pyls-executable)
+      lua
+      deft
       dap
      )
 
@@ -101,7 +93,7 @@ This function should only modify configuration layer settings."
    dotspacemacs-frozen-packages '()
 
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '(ac-ispell auto-complete spacemacs-theme leuven-theme org-present orgit org-evil fancy-battery gntp)
+   dotspacemacs-excluded-packages '(ac-ispell auto-complete spacemacs-theme leuven-theme fancy-battery gntp org-plus-contrib evil-org)
 
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
@@ -495,12 +487,12 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   (setq configuration-layer-elpa-archives
         '(("melpa-stable" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa-stable/")
           ("melpa-cn" .     "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
-          ("org-cn" .       "https://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
+          ;;("org-cn" .       "https://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
           ("gnu-cn" .       "https://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")))
  (setq package-archive-priorities
        '(("melpa-stable" . 10)
          ("gnu-cn" . 5)
-         ("org-cn" . 10)
+         ;;("org-cn" . 10)
          ("melpa-cn" . 0)))
   (setq use-package-verbose t)
   (if (eq system-type 'darwin)
@@ -511,7 +503,7 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   ;;   (setq ms-pyls-executable "MicroSoft.Python.LanguageServer"))
   ;;(global-git-commit-mode t)
   (add-to-list 'load-path "~/.spacemacs.d/elisp/")
-  (require 'lv)
+  ;;(require 'lv)
   )
 
 (defun dotspacemacs/user-load ()
@@ -601,10 +593,11 @@ This function is called at the very end of Spacemacs initialization."
      ("XXX" . "#dc752f")
      ("XXXX" . "#dc752f"))))
  '(lsp-ui-flycheck-enable t)
- '(lsp-ui-sideline-enable nil t)
+ '(lsp-ui-sideline-enable t t)
+ '(lsp-ui-sideline-show-hover nil)
  '(package-selected-packages
    (quote
-    (cnfonts helm-gtags ggtags counsel-gtags company-lua lua-mode exec-path-from-shell rainbow-delimiters color-moccur color-theme-buffer-local typescript-mode auctex doom-themes vmd-mode mmm-mode markdown-toc gh-md emoji-cheat-sheet-plus company-emoji lsp-javascript-flow ccls zenburn-theme youdao-dictionary yasnippet-snippets xterm-color ws-butler writeroom-mode winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package unfill treemacs-projectile treemacs-evil toc-org tangotango-theme symon string-inflection spaceline-all-the-icons smex shell-pop reveal-in-osx-finder restart-emacs request rainbow-mode rainbow-identifiers pyim popwin persp-mode pcre2el password-generator paradox pangu-spacing ox-gfm overseer osx-trash osx-dictionary org-projectile org-pomodoro org-mime org-download org-bullets org-brain open-junk-file ob-ipython nameless mwim multi-term move-text material-theme macrostep lorem-ipsum link-hint launchctl ivy-yasnippet ivy-xref ivy-purpose ivy-hydra indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-make google-translate golden-ratio gnuplot git-gutter-fringe git-gutter-fringe+ fuzzy font-lock+ flycheck-pos-tip flx-ido find-by-pinyin-dired fill-column-indicator fcitx eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help elisp-slime-nav editorconfig dumb-jump dracula-theme dotenv-mode doom-modeline diminish diff-hl dash-at-point counsel-projectile counsel-dash company-statistics company-quickhelp column-enforce-mode color-identifiers-mode clean-aindent-mode chinese-conv centered-cursor-mode cdlatex browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-pinyin ace-link)))
+    (org evil-org nov org-pdfview pdf-tools helm-gtags ggtags counsel-gtags company-lua lua-mode exec-path-from-shell rainbow-delimiters color-moccur color-theme-buffer-local typescript-mode auctex doom-themes vmd-mode mmm-mode markdown-toc gh-md emoji-cheat-sheet-plus company-emoji lsp-javascript-flow ccls zenburn-theme youdao-dictionary yasnippet-snippets xterm-color ws-butler writeroom-mode winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package unfill treemacs-projectile treemacs-evil toc-org tangotango-theme symon string-inflection spaceline-all-the-icons smex shell-pop reveal-in-osx-finder restart-emacs request rainbow-mode rainbow-identifiers pyim popwin persp-mode pcre2el password-generator paradox pangu-spacing ox-gfm overseer osx-trash osx-dictionary org-projectile org-pomodoro org-mime org-download org-bullets open-junk-file ob-ipython nameless mwim multi-term move-text material-theme macrostep lorem-ipsum link-hint launchctl ivy-yasnippet ivy-xref ivy-purpose ivy-hydra indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-make google-translate golden-ratio gnuplot git-gutter-fringe git-gutter-fringe+ fuzzy font-lock+ flycheck-pos-tip flx-ido find-by-pinyin-dired fill-column-indicator fcitx eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help elisp-slime-nav editorconfig dumb-jump dracula-theme dotenv-mode doom-modeline diminish diff-hl dash-at-point counsel-projectile counsel-dash company-statistics company-quickhelp column-enforce-mode color-identifiers-mode clean-aindent-mode chinese-conv centered-cursor-mode cdlatex browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-pinyin ace-link)))
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
  '(safe-local-variable-values
    (quote
@@ -615,5 +608,5 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-) 
+ )
 )   
