@@ -53,31 +53,31 @@ This function should only modify configuration layer settings."
      (org :variables
           org-enable-github-support t)
 
-      syntax-checking
-      version-control
-      colors
-      (chinese :variables
-               chinese-enable-fcitx t
-               chinese-enable-youdao-dict t)
-      dash
-      org-enhanced
-      latex-enhanced
-      (c-c++ :variables
-             c-c++-backend 'lsp-ccls
-             c-c++-lsp-cache-dir "~/.emacs.d/.cache/lsp-ccls")
-      (javascript :variables
-        ;;         node-add-modules-path t
-                  javascript-backend 'lsp
-                  javascript-fmt-tool 'prettier)
-      ;;(typescript :variables
-      ;;            typescript-backend 'lsp)
-      (python :variables
-              python-backend 'lsp)
-      ;(python-ms :variables
-      ;           ms-pyls-exe ms-pyls-executable)
-      lua
-      deft
-      dap
+     syntax-checking
+     version-control
+     colors
+     (chinese :variables
+              chinese-enable-fcitx t
+              chinese-enable-youdao-dict t)
+     dash
+     org-enhanced
+     latex-enhanced
+     (c-c++ :variables
+            c-c++-backend 'lsp-ccls
+            c-c++-lsp-cache-dir (expand-file-name "~/.emacs.d/.cache/lsp-ccls"))
+     (javascript :variables
+                 ;;         node-add-modules-path t
+                 javascript-backend 'lsp
+                 javascript-fmt-tool 'prettier)
+     ;;(typescript :variables
+     ;;            typescript-backend 'lsp)
+     (python :variables
+             python-backend 'lsp)
+                                        ;(python-ms :variables
+                                        ;           ms-pyls-exe ms-pyls-executable)
+     ;;lua
+     deft
+     ;;dap
      )
 
    ;; List of additional packages that will be installed without being
@@ -249,7 +249,7 @@ It should only modify the values of Spacemacs settings."
                                            :width normal
                                            :powerline-scale 1.1))
                                        fonts))
-   
+
    ;; The leader key (default "SPC")
    dotspacemacs-leader-key "SPC"
 
@@ -263,7 +263,7 @@ It should only modify the values of Spacemacs settings."
    ;; The leader key accessible in `emacs state' and `insert state'
    ;; (default "M-m")
    dotspacemacs-emacs-leader-key "M-m"
-   
+
    ;; Major mode leader key is a shortcut key which is the equivalent of
    ;; pressing `<leader> m`. Set it to `nil` to disable it. (default ",")
    dotspacemacs-major-mode-leader-key ","
@@ -489,11 +489,11 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
           ("melpa-cn" .     "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
           ;;("org-cn" .       "https://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
           ("gnu-cn" .       "https://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")))
- (setq package-archive-priorities
-       '(("melpa-stable" . 10)
-         ("gnu-cn" . 5)
-         ;;("org-cn" . 10)
-         ("melpa-cn" . 0)))
+  (setq package-archive-priorities
+        '(("melpa-stable" . 10)
+          ("gnu-cn" . 5)
+          ;;("org-cn" . 10)
+          ("melpa-cn" . 0)))
   (setq use-package-verbose t)
   (if (eq system-type 'darwin)
       (set-fontset-font "fontset-default" 'han (font-spec :family "PingFang SC" :size 14))
@@ -502,7 +502,13 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   ;;     (setq ms-pyls-executable "e:/Projects/python-language-server/output/bin/Release/win10-x64/publish/Microsoft.Python.LanguageServer.exe")
   ;;   (setq ms-pyls-executable "MicroSoft.Python.LanguageServer"))
   ;;(global-git-commit-mode t)
-  (add-to-list 'load-path "~/.spacemacs.d/elisp/")
+  ;;(add-to-list 'load-path "~/.spacemacs.d/elisp/")
+  (defun add-subdirs-to-load-path (dir)
+    "Recursive add directories to 'load-path'."
+    (let ((default-directory (file-name-as-directory dir)))
+      (add-to-list 'load-path dir)
+      (normal-top-level-add-subdirs-to-load-path)))
+  (add-subdirs-to-load-path "~/.spacemacs.d/elisp/")
   ;;(require 'lv)
   )
 
@@ -514,52 +520,105 @@ dump."
   )
 
 (defun dotspacemacs/user-config ()
-  "Configuration for user code:
+"Configuration for user code:
 This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
-  ;;(setq magit-repository-directories '("~/Projects"))
-  ;;(add-to-list 'load-path "~/.spacemacs.d/elisp/")
-  (use-package color-rg)
-  (use-package aweshell)
-  ;; (use-package color-moccur
-  ;;   :commands (isearch-moccur isearch-all)
-  ;;   :bind (("M-s O" . moccur)
-  ;;          :map isearch-mode-map
-  ;;          ("M-o" . isearch-moccur)
-  ;;          ("M-O" . isearch-moccur-all))
-  ;;   :init
-  ;;   (setq isearch-lazy-highlight t)
-  ;;   :config
-  ;;   (use-package moccur-edit))
-  (use-package doom-modeline
-    :ensure t
-    :config (doom-modeline-mode 1))
-  (use-package rainbow-delimiters
-    :hook (prog-mode . rainbow-delimiters-mode))
-  ;;(use-package cnfonts
-  ;;  :config (progn
-  ;;            (cnfonts-enable)
-  ;;            (cnfonts-set-spacemacs-fallback-fonts)))
-  (global-git-commit-mode t)
-
-  (defun my-font-mono()
-    (interactive)
-    (spacemacs/set-default-font '("Inconsolata"
-                                  :size 14
-                                  :weight normal
-                                  :width normal)))
-   
-  (defun my-font-default()
-    (interactive)
-    (spacemacs/set-default-font dotspacemacs-default-font))
- ;; (setq powerline-default-separator nil)
-  ;; (spaceline-compile)
-
-  (when (spacemacs/system-is-mac)
-    (spacemacs//set-monospaced-font "Inconsolata" "PingFang SC" 14 14))
+;;(setq magit-repository-directories '("~/Projects"))
+;;(add-to-list 'load-path "~/.spacemacs.d/elisp/")
+(use-package color-rg)
+(use-package aweshell)
+;; (use-package color-moccur
+;;   :commands (isearch-moccur isearch-all)
+;;   :bind (("M-s O" . moccur)
+;;          :map isearch-mode-map
+;;          ("M-o" . isearch-moccur)
+;;          ("M-O" . isearch-moccur-all))
+;;   :init
+;;   (setq isearch-lazy-highlight t)
+;;   :config
+;;   (use-package moccur-edit))
+(use-package doom-modeline
+  :ensure t
+  :config (doom-modeline-mode 1))
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode))
+;;(use-package cnfonts
+;;  :config (progn
+;;            (cnfonts-enable)
+;;            (cnfonts-set-spacemacs-fallback-fonts)))
+(use-package auto-save
+  :init
+  (setq auto-save-silent t)
+  :config
+  (auto-save-enable)
   )
+
+(use-package lazy-search
+  :bind (("M-s s" . lazy-search))
+  )
+(use-package thing-edit)
+(use-package posframe)
+
+(use-package awesome-pair
+  :bind (:map awesome-pair-mode-map
+              ("(" . awesome-pair-open-round)
+              ("[" . awesome-pair-open-bracket)
+              ("{" . awesome-pair-open-curly)
+              (")" . awesome-pair-close-round)
+              ("]" . awesome-pair-close-bracket)
+              ("}" . awesome-pair-close-curly)
+              ("=" . awesome-pair-equal)
+
+              ("%" . awesome-pair-match-paren)
+              ("\"" . awesome-pair-double-quote)
+              ("SPC" . awesome-pair-space)
+
+              ("M-o" . awesome-pair-backward-delete)
+              ("C-d" . awesome-pair-forward-delete)
+              ("C-k" . awesome-pair-kill)
+
+              ("M-\"" . awesome-pair-wrap-double-quote)
+              ("M-[" . awesome-pair-wrap-bracket)
+              ("M-{" . awesome-pair-wrap-curly)
+              ("M-(" . awesome-pair-wrap-round)
+              ("M-)" . awesome-pair-unwrap)
+              ("M-p" . awesome-pair-jump-right)
+              ("M-n" . awesome-pair-jump-left)
+              ("M-:" . awesome-pair-jump-out-pair-and-newline)
+              )
+  :hook ((prog-mode ielm-mode minibuffer-inactive-mode sh-mode) . awesome-pair-mode))
+(use-package magit-extension)
+
+;; (use-package lsp-python-ms
+;;   :init
+;;   (remhash 'pyls lsp-clients)
+;;   :config
+;;     ;;(setq ms-python-server-install-dir
+;;     ;;     "e:/Projects/python-language-server/output/bin/Release/")
+;;     ;; for executable of language server, if it's not symlinked on your PATH
+;;   (setq lsp-python-ms-executable "MicroSoft.Python.LanguageServer"))
+
+(global-git-commit-mode t)
+
+(defun my-font-mono()
+  (interactive)
+  (spacemacs/set-default-font '("Inconsolata"
+                                :size 14
+                                :weight normal
+                                :width normal)))
+
+(defun my-font-default()
+  (interactive)
+  (spacemacs/set-default-font dotspacemacs-default-font))
+;; (setq powerline-default-separator nil)
+;; (spaceline-compile)
+
+(when (spacemacs/system-is-mac)
+  (spacemacs//set-monospaced-font "Inconsolata" "PingFang SC" 14 14)))
+
+
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
@@ -568,45 +627,45 @@ before packages are loaded."
 This is an auto-generated function, do not modify its content directly, use
 Emacs customize menu instead.
 This function is called at the very end of Spacemacs initialization."
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(dap-python-executable "python3")
- '(evil-want-Y-yank-to-eol nil)
- '(hl-todo-keyword-faces
-   (quote
-    (("TODO" . "#dc752f")
-     ("NEXT" . "#dc752f")
-     ("THEM" . "#2d9574")
-     ("PROG" . "#4f97d7")
-     ("OKAY" . "#4f97d7")
-     ("DONT" . "#f2241f")
-     ("FAIL" . "#f2241f")
-     ("DONE" . "#86dc2f")
-     ("NOTE" . "#b1951d")
-     ("KLUDGE" . "#b1951d")
-     ("HACK" . "#b1951d")
-     ("TEMP" . "#b1951d")
-     ("FIXME" . "#dc752f")
-     ("XXX" . "#dc752f")
-     ("XXXX" . "#dc752f"))))
- '(lsp-ui-flycheck-enable t)
- '(lsp-ui-sideline-enable t t)
- '(lsp-ui-sideline-show-hover nil)
- '(package-selected-packages
-   (quote
-    (org evil-org nov org-pdfview pdf-tools helm-gtags ggtags counsel-gtags company-lua lua-mode exec-path-from-shell rainbow-delimiters color-moccur color-theme-buffer-local typescript-mode auctex doom-themes vmd-mode mmm-mode markdown-toc gh-md emoji-cheat-sheet-plus company-emoji lsp-javascript-flow ccls zenburn-theme youdao-dictionary yasnippet-snippets xterm-color ws-butler writeroom-mode winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package unfill treemacs-projectile treemacs-evil toc-org tangotango-theme symon string-inflection spaceline-all-the-icons smex shell-pop reveal-in-osx-finder restart-emacs request rainbow-mode rainbow-identifiers pyim popwin persp-mode pcre2el password-generator paradox pangu-spacing ox-gfm overseer osx-trash osx-dictionary org-projectile org-pomodoro org-mime org-download org-bullets open-junk-file ob-ipython nameless mwim multi-term move-text material-theme macrostep lorem-ipsum link-hint launchctl ivy-yasnippet ivy-xref ivy-purpose ivy-hydra indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-make google-translate golden-ratio gnuplot git-gutter-fringe git-gutter-fringe+ fuzzy font-lock+ flycheck-pos-tip flx-ido find-by-pinyin-dired fill-column-indicator fcitx eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help elisp-slime-nav editorconfig dumb-jump dracula-theme dotenv-mode doom-modeline diminish diff-hl dash-at-point counsel-projectile counsel-dash company-statistics company-quickhelp column-enforce-mode color-identifiers-mode clean-aindent-mode chinese-conv centered-cursor-mode cdlatex browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-pinyin ace-link)))
- '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
- '(safe-local-variable-values
-   (quote
-    ((buffer-file-coding-syetem . gb2312)
-     (javascript-backend . lsp)))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-)   
+  (custom-set-variables
+   ;; custom-set-variables was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(dap-python-executable "python3")
+   '(evil-want-Y-yank-to-eol nil)
+   '(hl-todo-keyword-faces
+     (quote
+      (("TODO" . "#dc752f")
+       ("NEXT" . "#dc752f")
+       ("THEM" . "#2d9574")
+       ("PROG" . "#4f97d7")
+       ("OKAY" . "#4f97d7")
+       ("DONT" . "#f2241f")
+       ("FAIL" . "#f2241f")
+       ("DONE" . "#86dc2f")
+       ("NOTE" . "#b1951d")
+       ("KLUDGE" . "#b1951d")
+       ("HACK" . "#b1951d")
+       ("TEMP" . "#b1951d")
+       ("FIXME" . "#dc752f")
+       ("XXX" . "#dc752f")
+       ("XXXX" . "#dc752f"))))
+   '(lsp-ui-flycheck-enable t)
+   '(lsp-ui-sideline-enable t t)
+   '(lsp-ui-sideline-show-hover nil)
+   '(package-selected-packages
+     (quote
+      (org evil-org nov org-pdfview pdf-tools helm-gtags ggtags counsel-gtags company-lua lua-mode exec-path-from-shell rainbow-delimiters color-moccur color-theme-buffer-local typescript-mode auctex doom-themes vmd-mode mmm-mode markdown-toc gh-md emoji-cheat-sheet-plus company-emoji lsp-javascript-flow ccls zenburn-theme youdao-dictionary yasnippet-snippets xterm-color ws-butler writeroom-mode winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package unfill treemacs-projectile treemacs-evil toc-org tangotango-theme symon string-inflection spaceline-all-the-icons smex shell-pop reveal-in-osx-finder restart-emacs request rainbow-mode rainbow-identifiers pyim popwin persp-mode pcre2el password-generator paradox pangu-spacing ox-gfm overseer osx-trash osx-dictionary org-projectile org-pomodoro org-mime org-download org-bullets open-junk-file ob-ipython nameless mwim multi-term move-text material-theme macrostep lorem-ipsum link-hint launchctl ivy-yasnippet ivy-xref ivy-purpose ivy-hydra indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-make google-translate golden-ratio gnuplot git-gutter-fringe git-gutter-fringe+ fuzzy font-lock+ flycheck-pos-tip flx-ido find-by-pinyin-dired fill-column-indicator fcitx eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help elisp-slime-nav editorconfig dumb-jump dracula-theme dotenv-mode doom-modeline diminish diff-hl dash-at-point counsel-projectile counsel-dash company-statistics company-quickhelp column-enforce-mode color-identifiers-mode clean-aindent-mode chinese-conv centered-cursor-mode cdlatex browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-pinyin ace-link)))
+   '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
+   '(safe-local-variable-values
+     (quote
+      ((buffer-file-coding-syetem . gb2312)
+       (javascript-backend . lsp)))))
+  (custom-set-faces
+   ;; custom-set-faces was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   )
+  )

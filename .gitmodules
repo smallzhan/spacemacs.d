@@ -1,0 +1,21 @@
+[submodule "elisp/auto-save"]
+	path = elisp/auto-save
+	url = https://github.com/manateelazycat/auto-save.git
+[submodule "elisp/aweshell"]
+	path = elisp/aweshell
+	url = https://github.com/manateelazycat/aweshell
+[submodule "elisp/awesome-pair"]
+	path = elisp/awesome-pair
+	url = https://github.com/manateelazycat/awesome-pair.git
+[submodule "elisp/color-rg"]
+	path = elisp/color-rg
+	url = https://github.com/manateelazycat/color-rg
+[submodule "elisp/lazy-search"]
+	path = elisp/lazy-search
+	url = https://github.com/manateelazycat/lazy-search
+[submodule "elisp/posframe"]
+	path = elisp/posframe
+	url = https://github.com/tumashu/posframe.git
+[submodule "elisp/thing-edit"]
+	path = elisp/thing-edit
+	url = https://github.com/manateelazycat/thing-edit
