@@ -527,7 +527,8 @@ Put your configuration code here, except for variables that should be set
 before packages are loaded."
 ;;(setq magit-repository-directories '("~/Projects"))
 ;;(add-to-list 'load-path "~/.spacemacs.d/elisp/")
-(use-package color-rg)
+(use-package color-rg
+  :config (evil-set-initial-state 'color-rg-mode 'emacs))
 (use-package aweshell)
 ;; (use-package color-moccur
 ;;   :commands (isearch-moccur isearch-all)
