@@ -56,10 +56,8 @@ This function should only modify configuration layer settings."
      syntax-checking
      version-control
      colors
-     (chinese :variables
-              chinese-enable-fcitx t
-              chinese-enable-youdao-dict t)
      dash
+     chinese-refined
      org-enhanced
      latex-enhanced
      (c-c++ :variables
@@ -558,7 +556,8 @@ before packages are loaded."
 
 (use-package lazy-search
   :bind (("M-s s" . lazy-search))
-  )
+  :config (evil-set-initial-state 'lazy-search-mode 'emacs))
+
 (use-package thing-edit)
 (use-package posframe)
 
@@ -601,6 +600,10 @@ before packages are loaded."
 ;;     ;; for executable of language server, if it's not symlinked on your PATH
 ;;   (setq lsp-python-ms-executable "MicroSoft.Python.LanguageServer"))
 
+(with-eval-after-load 'pyim
+  (global-set-key (kbd "M-j") 'pyim-convert-code-at-point)
+  (global-set-key (kbd "C-;") 'pyim-delete-last-word))
+
 (global-git-commit-mode t)
 
 (defun my-font-mono()
@@ -628,45 +631,49 @@ before packages are loaded."
 This is an auto-generated function, do not modify its content directly, use
 Emacs customize menu instead.
 This function is called at the very end of Spacemacs initialization."
-  (custom-set-variables
-   ;; custom-set-variables was added by Custom.
-   ;; If you edit it by hand, you could mess it up, so be careful.
-   ;; Your init file should contain only one such instance.
-   ;; If there is more than one, they won't work right.
-   '(dap-python-executable "python3")
-   '(evil-want-Y-yank-to-eol nil)
-   '(hl-todo-keyword-faces
-     (quote
-      (("TODO" . "#dc752f")
-       ("NEXT" . "#dc752f")
-       ("THEM" . "#2d9574")
-       ("PROG" . "#4f97d7")
-       ("OKAY" . "#4f97d7")
-       ("DONT" . "#f2241f")
-       ("FAIL" . "#f2241f")
-       ("DONE" . "#86dc2f")
-       ("NOTE" . "#b1951d")
-       ("KLUDGE" . "#b1951d")
-       ("HACK" . "#b1951d")
-       ("TEMP" . "#b1951d")
-       ("FIXME" . "#dc752f")
-       ("XXX" . "#dc752f")
-       ("XXXX" . "#dc752f"))))
-   '(lsp-ui-flycheck-enable t)
-   '(lsp-ui-sideline-enable t t)
-   '(lsp-ui-sideline-show-hover nil)
-   '(package-selected-packages
-     (quote
-      (org evil-org nov org-pdfview pdf-tools helm-gtags ggtags counsel-gtags company-lua lua-mode exec-path-from-shell rainbow-delimiters color-moccur color-theme-buffer-local typescript-mode auctex doom-themes vmd-mode mmm-mode markdown-toc gh-md emoji-cheat-sheet-plus company-emoji lsp-javascript-flow ccls zenburn-theme youdao-dictionary yasnippet-snippets xterm-color ws-butler writeroom-mode winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package unfill treemacs-projectile treemacs-evil toc-org tangotango-theme symon string-inflection spaceline-all-the-icons smex shell-pop reveal-in-osx-finder restart-emacs request rainbow-mode rainbow-identifiers pyim popwin persp-mode pcre2el password-generator paradox pangu-spacing ox-gfm overseer osx-trash osx-dictionary org-projectile org-pomodoro org-mime org-download org-bullets open-junk-file ob-ipython nameless mwim multi-term move-text material-theme macrostep lorem-ipsum link-hint launchctl ivy-yasnippet ivy-xref ivy-purpose ivy-hydra indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-make google-translate golden-ratio gnuplot git-gutter-fringe git-gutter-fringe+ fuzzy font-lock+ flycheck-pos-tip flx-ido find-by-pinyin-dired fill-column-indicator fcitx eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help elisp-slime-nav editorconfig dumb-jump dracula-theme dotenv-mode doom-modeline diminish diff-hl dash-at-point counsel-projectile counsel-dash company-statistics company-quickhelp column-enforce-mode color-identifiers-mode clean-aindent-mode chinese-conv centered-cursor-mode cdlatex browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-pinyin ace-link)))
-   '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
-   '(safe-local-variable-values
-     (quote
-      ((buffer-file-coding-syetem . gb2312)
-       (javascript-backend . lsp)))))
-  (custom-set-faces
-   ;; custom-set-faces was added by Custom.
-   ;; If you edit it by hand, you could mess it up, so be careful.
-   ;; Your init file should contain only one such instance.
-   ;; If there is more than one, they won't work right.
-   )
-  )
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(dap-python-executable "python3")
+ '(evil-want-Y-yank-to-eol nil)
+ '(hl-todo-keyword-faces
+   (quote
+    (("TODO" . "#dc752f")
+     ("NEXT" . "#dc752f")
+     ("THEM" . "#2d9574")
+     ("PROG" . "#4f97d7")
+     ("OKAY" . "#4f97d7")
+     ("DONT" . "#f2241f")
+     ("FAIL" . "#f2241f")
+     ("DONE" . "#86dc2f")
+     ("NOTE" . "#b1951d")
+     ("KLUDGE" . "#b1951d")
+     ("HACK" . "#b1951d")
+     ("TEMP" . "#b1951d")
+     ("FIXME" . "#dc752f")
+     ("XXX" . "#dc752f")
+     ("XXXX" . "#dc752f"))))
+ '(lsp-ui-flycheck-enable t)
+ '(lsp-ui-sideline-enable t t)
+ '(lsp-ui-sideline-show-hover nil)
+ '(package-selected-packages
+   (quote
+    (org evil helm-gtags ggtags counsel-gtags company-lua lua-mode exec-path-from-shell rainbow-delimiters color-moccur color-theme-buffer-local typescript-mode auctex doom-themes vmd-mode mmm-mode markdown-toc gh-md emoji-cheat-sheet-plus company-emoji lsp-javascript-flow ccls zenburn-theme youdao-dictionary yasnippet-snippets xterm-color ws-butler writeroom-mode winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package unfill treemacs-projectile treemacs-evil toc-org tangotango-theme symon string-inflection spaceline-all-the-icons smex shell-pop reveal-in-osx-finder restart-emacs request rainbow-mode rainbow-identifiers popwin persp-mode pcre2el password-generator paradox pangu-spacing ox-gfm overseer osx-trash osx-dictionary org-projectile org-pomodoro org-mime org-download org-bullets open-junk-file ob-ipython nameless mwim multi-term move-text material-theme macrostep lorem-ipsum link-hint launchctl ivy-yasnippet ivy-xref ivy-purpose ivy-hydra indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-make google-translate golden-ratio gnuplot git-gutter-fringe git-gutter-fringe+ fuzzy font-lock+ flycheck-pos-tip flx-ido find-by-pinyin-dired fill-column-indicator fcitx eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help elisp-slime-nav editorconfig dumb-jump dracula-theme dotenv-mode doom-modeline diminish diff-hl dash-at-point counsel-projectile counsel-dash company-statistics company-quickhelp column-enforce-mode color-identifiers-mode clean-aindent-mode centered-cursor-mode cdlatex browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-pinyin ace-link)))
+ '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
+ '(pyim-dicts
+   (quote
+    ((:name "greatdict" :file "/Users/guoqiang/.spacemacs.d/pyim/pyim-greatdict.pyim.gz"))))
+ '(safe-local-variable-values
+   (quote
+    ((buffer-file-coding-syetem . gb2312)
+     (javascript-backend . lsp)))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+)
+
