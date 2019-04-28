@@ -467,54 +467,55 @@ as the default task."
     ;;(add-hook 'org-mode-hook 'turn-on-org-cdlatex)
 
     (require 'org-tempo)
+    
     (setq org-latex-listings t)
-
+    (setq org-latex-compiler "xelatex")
+    (setq org-preview-latex-default-process 'dvisvgm)
+    (setq org-highlight-latex-and-related '(latex script))
     (require 'ox-latex)
     (add-to-list 'org-latex-classes
-                 '("my-beamer"
-                   "\\documentclass[presentation]{beamer}
-                      \\usepackage[UTF8]{ctex}
-                      \\mode<presentation> {
-                        \\setbeamercovered{transparent}
-                        \\setbeamertemplate{theorems}[numbered]
-                        \\usefonttheme[onlymath]{serif}
-                      }
-                      \\usepackage{amsmath, amssymb}
-                      \\usepackage{hyperref}
-                      \\usepackage[english]{babel}
-                      \\usepackage{tikz}
-                      \\setbeamerfont{smallfont}{size=\\small}
-                      [NO-DEFAULT-PACKAGES]
-                      [NO-PACKAGES]
-                      [EXTRA]"
-                   ("\\section\{%s\}" . "\\section*\{%s\}")
-                   ("\\subsection\{%s\}" . "\\subsection*\{%s\}")
-                   ("\\subsubsection\{%s\}" . "\\subsubsection*\{%s\}")
+                 `("my-beamer"
+                   ,(concat
+                    "\\documentclass[presentation]{beamer}"
+                    "\n" "\\usepackage[UTF8]{ctex}"
+                    "\n" "\\mode<presentation> {"
+                    "\n" "\\setbeamercovered{transparent}"
+                    "\n" "\\setbeamertemplate{theorems}[numbered]"
+                    "\n" "\\usefonttheme[onlymath]{serif}"
+                    "\n" "}"
+                    "\n" "\\usepackage{amsmath, amssymb}"
+                    "\n" "\\usepackage{hyperref}"
+                    "\n" "\\usepackage[english]{babel}"
+                    "\n" "\\usepackage{tikz}"
+                    "\n" "\\setbeamerfont{smallfont}{size=\\small}"
+                    "\n" "[NO-DEFAULT-PACKAGES]"
+                    "\n" "[NO-PACKAGES]"
+                    "\n" "[EXTRA]")
+                   ("\\section{%s}" . "\\section*{%s}")
+                   ("\\subsection{%s}" . "\\subsection*{%s}")
+                   ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                    ))
 
     (add-to-list 'org-latex-classes
-                 '("my-article"
-                   "\\documentclass{ctexart}
-                      \\usepackage{hyperref}
-                      [NO-DEFAULT-PACKAGES]
-                      [PACKAGES]
-                      [EXTRA]"
+                 `("my-article"
+                   ,(concat
+                     "\\documentclass{ctexart}"
+                     "\n" "\\usepackage{hyperref}"
+                     "\n" "[NO-DEFAULT-PACKAGES]"
+                     "\n" "[PACKAGES]"
+                     "\n" "[EXTRA]")
                    ("\\section{%s}" . "\\section*{%s}")
                    ("\\subsection{%s}" . "\\subsection*{%s}")
                    ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                    ("\\paragraph{%s}" . "\\paragraph*{%s}")
                    ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-    (setq org-latex-pdf-process
-          '("xelatex -interaction nonstopmode -output-directory %o %f"
-            "xelatex -interaction nonstopmode -output-directory %o %f")
-          )
+
+
+
     (setq org-agenda-exporter-settings
           '((ps-number-of-columns 1)
             (ps-landscape-mode t)
             (htmlize-output-type 'css)))
-
-
-
 
     (setq org-html-head-include-default-style nil)
     (setq org-html-postamble t)

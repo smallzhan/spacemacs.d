@@ -236,7 +236,7 @@ It should only modify the values of Spacemacs settings."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font (let ((fonts
-                                    '(("SF Mono" . 13)
+                                    '(("Fira Code" . 13)
                                       ("DejaVu Sans Mono" . 14)
                                       ("Consolas" . 14)
                                       ("Source Code Pro" . 13))))
@@ -494,7 +494,7 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
           ("melpa-cn" . 0)))
   (setq use-package-verbose t)
   (if (eq system-type 'darwin)
-      (set-fontset-font "fontset-default" 'han (font-spec :family "PingFang SC" :size 14))
+      (set-fontset-font "fontset-default" 'han '("PingFang SC"))
     (set-fontset-font "fontset-default" 'han '("Microsoft Yahei")))
   ;; (if (eq system-type 'windows-nt)
   ;;     (setq ms-pyls-executable "e:/Projects/python-language-server/output/bin/Release/win10-x64/publish/Microsoft.Python.LanguageServer.exe")
@@ -618,9 +618,9 @@ before packages are loaded."
   (spacemacs/set-default-font dotspacemacs-default-font))
 ;; (setq powerline-default-separator nil)
 ;; (spaceline-compile)
-
-(when (spacemacs/system-is-mac)
-  (spacemacs//set-monospaced-font "Inconsolata" "PingFang SC" 14 14)))
+(when (eq system-type 'darwin)
+  (mac-auto-operator-composition-mode))
+)
 
 
 
@@ -674,6 +674,5 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(org-table ((t (:family "Inconsolata" :height 1.1)))))
 )
-
