@@ -236,8 +236,8 @@ It should only modify the values of Spacemacs settings."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font (let ((fonts
-                                    '(("Fira Code" . 13)
-                                      ("DejaVu Sans Mono" . 14)
+                                    '(("DejaVu Sans Mono" . 14)
+                                      ("Fira Code" . 13)
                                       ("Consolas" . 14)
                                       ("Source Code Pro" . 13))))
                                (mapcar (lambda (font)
@@ -493,14 +493,11 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
           ;;("org-cn" . 10)
           ("melpa-cn" . 0)))
   (setq use-package-verbose t)
+  
   (if (eq system-type 'darwin)
       (set-fontset-font "fontset-default" 'han '("PingFang SC"))
     (set-fontset-font "fontset-default" 'han '("Microsoft Yahei")))
-  ;; (if (eq system-type 'windows-nt)
-  ;;     (setq ms-pyls-executable "e:/Projects/python-language-server/output/bin/Release/win10-x64/publish/Microsoft.Python.LanguageServer.exe")
-  ;;   (setq ms-pyls-executable "MicroSoft.Python.LanguageServer"))
-  ;;(global-git-commit-mode t)
-  ;;(add-to-list 'load-path "~/.spacemacs.d/elisp/")
+
   (defun add-subdirs-to-load-path (dir)
     "Recursive add directories to 'load-path'."
     (let ((default-directory (file-name-as-directory dir)))
@@ -664,7 +661,7 @@ This function is called at the very end of Spacemacs initialization."
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
  '(pyim-dicts
    (quote
-    ((:name "greatdict" :file "/Users/guoqiang/.spacemacs.d/pyim/pyim-greatdict.pyim.gz"))))
+    ((:name "greatdict" :file "~/.spacemacs.d/pyim/pyim-greatdict.pyim.gz"))))
  '(safe-local-variable-values
    (quote
     ((buffer-file-coding-syetem . gb2312)
@@ -674,5 +671,5 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-table ((t (:family "Inconsolata" :height 1.1)))))
+ `(org-table ((t (:family "Inconsolata" :height ,(if (eq system-type 'darwin) 1.1 1.0))))))
 )
