@@ -57,6 +57,7 @@ This function should only modify configuration layer settings."
      version-control
      colors
      dash
+     edit-enhanced
      chinese-refined
      org-enhanced
      latex-enhanced
@@ -542,72 +543,6 @@ Put your configuration code here, except for variables that should be set
 before packages are loaded."
   ;;(setq magit-repository-directories '("~/Projects"))
   ;;(add-to-list 'load-path "~/.spacemacs.d/elisp/")
-  (use-package color-rg
-    :config (evil-set-initial-state 'color-rg-mode 'emacs))
-  (use-package aweshell)
-  ;; (use-package color-moccur
-  ;;   :commands (isearch-moccur isearch-all)
-  ;;   :bind (("M-s O" . moccur)
-  ;;          :map isearch-mode-map
-  ;;          ("M-o" . isearch-moccur)
-  ;;          ("M-O" . isearch-moccur-all))
-  ;;   :init
-  ;;   (setq isearch-lazy-highlight t)
-  ;;   :config
-  ;;   (use-package moccur-edit))
-  (use-package doom-modeline
-    :ensure t
-    :config (doom-modeline-mode 1))
-  (use-package rainbow-delimiters
-    :hook (prog-mode . rainbow-delimiters-mode))
-  ;;(use-package cnfonts
-  ;;  :config (progn
-  ;;            (cnfonts-enable)
-  ;;            (cnfonts-set-spacemacs-fallback-fonts)))
-  (use-package auto-save
-    :init
-    (setq auto-save-silent t)
-    :config
-    (auto-save-enable)
-    )
-
-  (use-package lazy-search
-    :bind (("M-s s" . lazy-search))
-    :config (evil-set-initial-state 'lazy-search-mode 'emacs))
-
-  (use-package thing-edit)
-  (use-package posframe)
-
-  (use-package awesome-pair
-    :bind (:map awesome-pair-mode-map
-                ("(" . awesome-pair-open-round)
-                ("[" . awesome-pair-open-bracket)
-                ("{" . awesome-pair-open-curly)
-                (")" . awesome-pair-close-round)
-                ("]" . awesome-pair-close-bracket)
-                ("}" . awesome-pair-close-curly)
-                ("=" . awesome-pair-equal)
-
-                ("%" . awesome-pair-match-paren)
-                ("\"" . awesome-pair-double-quote)
-                ("SPC" . awesome-pair-space)
-
-                ("M-o" . awesome-pair-backward-delete)
-                ("C-d" . awesome-pair-forward-delete)
-                ("C-k" . awesome-pair-kill)
-
-                ("M-\"" . awesome-pair-wrap-double-quote)
-                ("M-[" . awesome-pair-wrap-bracket)
-                ("M-{" . awesome-pair-wrap-curly)
-                ("M-(" . awesome-pair-wrap-round)
-                ("M-)" . awesome-pair-unwrap)
-                ("M-p" . awesome-pair-jump-right)
-                ("M-n" . awesome-pair-jump-left)
-                ("M-:" . awesome-pair-jump-out-pair-and-newline)
-                )
-    :hook ((prog-mode ielm-mode minibuffer-inactive-mode sh-mode) . awesome-pair-mode))
-  (use-package magit-extension)
-
 
   (with-eval-after-load 'pyim
     (global-set-key (kbd "M-j") 'pyim-convert-code-at-point)
@@ -640,48 +575,48 @@ before packages are loaded."
 This is an auto-generated function, do not modify its content directly, use
 Emacs customize menu instead.
 This function is called at the very end of Spacemacs initialization."
-  (custom-set-variables
-   ;; custom-set-variables was added by Custom.
-   ;; If you edit it by hand, you could mess it up, so be careful.
-   ;; Your init file should contain only one such instance.
-   ;; If there is more than one, they won't work right.
-   '(dap-python-executable "python3")
-   '(evil-want-Y-yank-to-eol nil)
-   '(hl-todo-keyword-faces
-     (quote
-      (("TODO" . "#dc752f")
-       ("NEXT" . "#dc752f")
-       ("THEM" . "#2d9574")
-       ("PROG" . "#4f97d7")
-       ("OKAY" . "#4f97d7")
-       ("DONT" . "#f2241f")
-       ("FAIL" . "#f2241f")
-       ("DONE" . "#86dc2f")
-       ("NOTE" . "#b1951d")
-       ("KLUDGE" . "#b1951d")
-       ("HACK" . "#b1951d")
-       ("TEMP" . "#b1951d")
-       ("FIXME" . "#dc752f")
-       ("XXX" . "#dc752f")
-       ("XXXX" . "#dc752f"))))
-   '(lsp-ui-flycheck-enable t)
-   '(lsp-ui-sideline-enable t t)
-   '(lsp-ui-sideline-show-hover nil)
-   '(package-selected-packages
-     (quote
-      (org evil helm-gtags ggtags counsel-gtags company-lua lua-mode exec-path-from-shell rainbow-delimiters color-moccur color-theme-buffer-local typescript-mode auctex doom-themes vmd-mode mmm-mode markdown-toc gh-md emoji-cheat-sheet-plus company-emoji lsp-javascript-flow ccls zenburn-theme youdao-dictionary yasnippet-snippets xterm-color ws-butler writeroom-mode winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package unfill treemacs-projectile treemacs-evil toc-org tangotango-theme symon string-inflection spaceline-all-the-icons smex shell-pop reveal-in-osx-finder restart-emacs request rainbow-mode rainbow-identifiers popwin persp-mode pcre2el password-generator paradox pangu-spacing ox-gfm overseer osx-trash osx-dictionary org-projectile org-pomodoro org-mime org-download org-bullets open-junk-file ob-ipython nameless mwim multi-term move-text material-theme macrostep lorem-ipsum link-hint launchctl ivy-yasnippet ivy-xref ivy-purpose ivy-hydra indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-make google-translate golden-ratio gnuplot git-gutter-fringe git-gutter-fringe+ fuzzy font-lock+ flycheck-pos-tip flx-ido find-by-pinyin-dired fill-column-indicator fcitx eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help elisp-slime-nav editorconfig dumb-jump dracula-theme dotenv-mode doom-modeline diminish diff-hl dash-at-point counsel-projectile counsel-dash company-statistics company-quickhelp column-enforce-mode color-identifiers-mode clean-aindent-mode centered-cursor-mode cdlatex browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-pinyin ace-link)))
-   '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
-   '(pyim-dicts
-     (quote
-      ((:name "greatdict" :file "~/.spacemacs.d/pyim/pyim-greatdict.pyim.gz"))))
-   '(safe-local-variable-values
-     (quote
-      ((buffer-file-coding-syetem . gb2312)
-       (javascript-backend . lsp)))))
-  (custom-set-faces
-   ;; custom-set-faces was added by Custom.
-   ;; If you edit it by hand, you could mess it up, so be careful.
-   ;; Your init file should contain only one such instance.
-   ;; If there is more than one, they won't work right.
-   `(org-table ((t (:family "Inconsolata" :height ,(if (eq system-type 'darwin) 1.1 1.0))))))
-  )
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(dap-python-executable "python3")
+ '(evil-want-Y-yank-to-eol nil)
+ '(hl-todo-keyword-faces
+   (quote
+    (("TODO" . "#dc752f")
+     ("NEXT" . "#dc752f")
+     ("THEM" . "#2d9574")
+     ("PROG" . "#4f97d7")
+     ("OKAY" . "#4f97d7")
+     ("DONT" . "#f2241f")
+     ("FAIL" . "#f2241f")
+     ("DONE" . "#86dc2f")
+     ("NOTE" . "#b1951d")
+     ("KLUDGE" . "#b1951d")
+     ("HACK" . "#b1951d")
+     ("TEMP" . "#b1951d")
+     ("FIXME" . "#dc752f")
+     ("XXX" . "#dc752f")
+     ("XXXX" . "#dc752f"))))
+ '(lsp-ui-flycheck-enable t)
+ '(lsp-ui-sideline-enable t t)
+ '(lsp-ui-sideline-show-hover nil)
+ '(package-selected-packages
+   (quote
+    (org evil helm-gtags ggtags counsel-gtags company-lua lua-mode exec-path-from-shell rainbow-delimiters color-moccur color-theme-buffer-local typescript-mode auctex doom-themes vmd-mode mmm-mode markdown-toc gh-md emoji-cheat-sheet-plus company-emoji lsp-javascript-flow ccls zenburn-theme youdao-dictionary yasnippet-snippets xterm-color ws-butler writeroom-mode winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package unfill treemacs-projectile treemacs-evil toc-org tangotango-theme symon string-inflection spaceline-all-the-icons smex shell-pop reveal-in-osx-finder restart-emacs request rainbow-mode rainbow-identifiers popwin persp-mode pcre2el password-generator paradox pangu-spacing ox-gfm overseer osx-trash osx-dictionary org-projectile org-pomodoro org-mime org-download org-bullets open-junk-file ob-ipython nameless mwim multi-term move-text material-theme macrostep lorem-ipsum link-hint launchctl ivy-yasnippet ivy-xref ivy-purpose ivy-hydra indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-make google-translate golden-ratio gnuplot git-gutter-fringe git-gutter-fringe+ fuzzy font-lock+ flycheck-pos-tip flx-ido find-by-pinyin-dired fill-column-indicator fcitx eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help elisp-slime-nav editorconfig dumb-jump dracula-theme dotenv-mode doom-modeline diminish diff-hl dash-at-point counsel-projectile counsel-dash company-statistics company-quickhelp column-enforce-mode color-identifiers-mode clean-aindent-mode centered-cursor-mode cdlatex browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-pinyin ace-link)))
+ '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
+ '(pyim-dicts
+   (quote
+    ((:name "greatdict" :file "~/.spacemacs.d/pyim/pyim-greatdict.pyim.gz"))))
+ '(safe-local-variable-values
+   (quote
+    ((buffer-file-coding-syetem . gb2312)
+     (javascript-backend . lsp)))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+)

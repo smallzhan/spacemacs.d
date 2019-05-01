@@ -467,30 +467,30 @@ as the default task."
     ;;(add-hook 'org-mode-hook 'turn-on-org-cdlatex)
 
     (require 'org-tempo)
-    
+
     (setq org-latex-listings t)
     (setq org-latex-compiler "xelatex")
     (setq org-preview-latex-default-process 'dvisvgm)
-    (setq org-highlight-latex-and-related '(latex script))
+    (setq org-highlight-latex-and-related '(latex))
     (require 'ox-latex)
     (add-to-list 'org-latex-classes
                  `("my-beamer"
                    ,(concat
                     "\\documentclass[presentation]{beamer}"
-                    "\n" "\\usepackage[UTF8]{ctex}"
-                    "\n" "\\mode<presentation> {"
-                    "\n" "\\setbeamercovered{transparent}"
-                    "\n" "\\setbeamertemplate{theorems}[numbered]"
-                    "\n" "\\usefonttheme[onlymath]{serif}"
-                    "\n" "}"
-                    "\n" "\\usepackage{amsmath, amssymb}"
-                    "\n" "\\usepackage{hyperref}"
-                    "\n" "\\usepackage[english]{babel}"
-                    "\n" "\\usepackage{tikz}"
-                    "\n" "\\setbeamerfont{smallfont}{size=\\small}"
-                    "\n" "[NO-DEFAULT-PACKAGES]"
-                    "\n" "[NO-PACKAGES]"
-                    "\n" "[EXTRA]")
+                    "\n\\usepackage[UTF8]{ctex}"
+                    "\n\\mode<presentation> {"
+                    "\n\\setbeamercovered{transparent}"
+                    "\n\\setbeamertemplate{theorems}[numbered]"
+                    "\n\\usefonttheme[onlymath]{serif}"
+                    "\n}"
+                    "\n\\usepackage{amsmath, amssymb}"
+                    "\n\\usepackage{hyperref}"
+                    "\n\\usepackage[english]{babel}"
+                    "\n\\usepackage{tikz}"
+                    "\n\\setbeamerfont{smallfont}{size=\\small}"
+                    "\n[NO-DEFAULT-PACKAGES]"
+                    "\n[NO-PACKAGES]"
+                    "\n[EXTRA]")
                    ("\\section{%s}" . "\\section*{%s}")
                    ("\\subsection{%s}" . "\\subsection*{%s}")
                    ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
@@ -500,10 +500,10 @@ as the default task."
                  `("my-article"
                    ,(concat
                      "\\documentclass{ctexart}"
-                     "\n" "\\usepackage{hyperref}"
-                     "\n" "[NO-DEFAULT-PACKAGES]"
-                     "\n" "[PACKAGES]"
-                     "\n" "[EXTRA]")
+                     "\n\\usepackage{hyperref}"
+                     "\n[NO-DEFAULT-PACKAGES]"
+                     "\n[PACKAGES]"
+                     "\n[EXTRA]")
                    ("\\section{%s}" . "\\section*{%s}")
                    ("\\subsection{%s}" . "\\subsection*{%s}")
                    ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
@@ -655,6 +655,13 @@ as the default task."
                              (org-show-context))
                      (cdr (org-make-tags-matcher match)) todo-only)
       )
+    (set-face-attribute
+     'org-table nil
+     :fontset (create-fontset-from-fontset-spec
+               (concat "-*-*-*-*-*--*-*-*-*-*-*-fontset-orgtable"
+                       ",han:Noto Sans Mono CJK SC"
+                       ",cjk-misc:Noto Sans Mono CJK SC"))
+     :family "Inconsolata")
     )
   )
 
