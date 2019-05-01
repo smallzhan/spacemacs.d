@@ -1,21 +1,18 @@
+[submodule "lazy-search"]
+	path = layers/edit-enhanced/local/lazy-search
+	url = https://github.com/manateelazycat/lazy-search.git
 [submodule "aweshell"]
 	path = layers/edit-enhanced/local/aweshell
 	url = https://github.com/manateelazycat/aweshell.git
+[submodule "thing-edit"]
+	path = layers/edit-enhanced/local/thing-edit
+	url = https://github.com/manateelazycat/thing-edit.git
 [submodule "awesome-pair"]
 	path = layers/edit-enhanced/local/awesome-pair
 	url = https://github.com/manateelazycat/awesome-pair.git
+[submodule "auto-save"]
+	path = layers/edit-enhanced/local/auto-save
+	url = https://github.com/manateelazycat/auto-save.git
 [submodule "color-rg"]
 	path = layers/edit-enhanced/local/color-rg
 	url = https://github.com/manateelazycat/color-rg.git
-[submodule "lazy-search"]
-	path = layers/edit-enhanced/local/lazy-search
-	url = https://github.com/manateelazycat/lazy-search
-[submodule "posframe"]
-	path = layers/edit-enhanced/local/posframe
-	url = https://github.com/tumashu/posframe.git
-[submodule "thing-edit"]
-	path = layers/edit-enhanced/local/thing-edit
-	url = https://github.com/manateelazycat/thing-edit
-[submodule "auto-save"]
-	path = layers/edit-enhanced/local/auto-save
-	url = https://github.com/manteelazycat/auto-save.git 

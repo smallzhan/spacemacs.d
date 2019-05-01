@@ -33,14 +33,16 @@
   '(
     doom-modeline
     rainbow-delimiters
+    posframe
+    expand-region
+    hangry-delete
+
     (auto-save :location local)
     (lazy-search :location local)
     (thing-edit :location local)
-    (posframe :location local)
     (awesome-pair :location local)
     (color-rg :location local)
-    expand-region
-    hangry-delete
+    (aweshell :location local)
     )
   "The list of Lisp packages required by the edit-enhanced layer.
 
