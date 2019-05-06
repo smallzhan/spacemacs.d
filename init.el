@@ -516,7 +516,7 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   (defvar chinese-fonts '("PingFang SC" "Microsoft YaHei"))
 
   (let ((font (find-fonts chinese-fonts)))
-    (dolist (charset '(kana han symbol cjk-misc bopomofo))
+    (dolist (charset '(kana han cjk-misc bopomofo))
       (set-fontset-font "fontset-default" charset font)))
 
   (defun add-subdirs-to-load-path (dir)

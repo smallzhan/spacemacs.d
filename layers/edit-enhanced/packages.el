@@ -35,7 +35,7 @@
     rainbow-delimiters
     posframe
     expand-region
-    hangry-delete
+    hungry-delete
 
     (auto-save :location local)
     (lazy-search :location local)
@@ -74,12 +74,13 @@ Each entry is either:
 
 (defun edit-enhanced/init-color-rg ()
   (use-package color-rg
+    :commands (color-rg-search-symbol-in-project color-rg-search-input-in-project)
     :config (evil-set-initial-state 'color-rg-mode 'emacs))
   )
 
 (defun edit-enhanced/init-aweshell ()
   (use-package aweshell
-    :defer t))
+    :init (setq aweshell-use-exec-path-from-shell nil)))
 
 (defun edit-enhanced/init-doom-modeline ()
   (use-package doom-modeline
@@ -95,13 +96,13 @@ Each entry is either:
 
 (defun edit-enhanced/init-lazy-search ()
   (use-package lazy-search
+    :commands lazy-search
     :bind (("M-s s" . lazy-search))
     :config (evil-set-initial-state 'lazy-search-mode 'emacs))
   )
 
 (defun edit-enhanced/init-thing-edit ()
-  (use-package thing-edit
-    :defer t))
+  (use-package thing-edit))
 
 (defun edit-enhanced/init-posframe ()
   (use-package posframe
@@ -187,4 +188,8 @@ Each entry is either:
       (define-key hungry-delete-mode-map (kbd "DEL") 'hungry-delete-backward)
       (define-key hungry-delete-mode-map (kbd "S-DEL") 'delete-backward-char))))
 
+(defun edit-enhanced/init-rainbow-delimiters ()
+  (use-package rainbow-delimiters
+    :hook (prog-mode . rainbow-delimiters-mode))
+  )
 ;;; packages.el ends here
